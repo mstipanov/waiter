@@ -3,8 +3,8 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;

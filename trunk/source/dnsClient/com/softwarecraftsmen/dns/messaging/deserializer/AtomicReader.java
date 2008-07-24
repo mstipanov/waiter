@@ -1,10 +1,10 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
 import com.softwarecraftsmen.CanNeverHappenException;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.Four;
-import static com.softwarecraftsmen.Unsigned16BitInteger.Sixteen;
-import com.softwarecraftsmen.Unsigned3BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Four;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Sixteen;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger;
 import com.softwarecraftsmen.dns.*;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolAddress;

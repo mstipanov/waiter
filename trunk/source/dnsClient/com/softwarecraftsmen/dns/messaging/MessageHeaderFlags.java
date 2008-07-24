@@ -4,8 +4,8 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.Zero;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
 import static com.softwarecraftsmen.dns.messaging.OperationCode.Status;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.ServerFailure;
@@ -162,7 +162,7 @@ public class MessageHeaderFlags implements Serializable
 	}
 
 	@NotNull
-	public static final MessageHeaderFlags reply(final boolean recursionDesired)
+	public static MessageHeaderFlags reply(final boolean recursionDesired)
 	{
 		return new MessageHeaderFlags(true, Status, false, false, recursionDesired, false, NoErrorCondition);
 	}

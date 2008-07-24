@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import static com.softwarecraftsmen.dns.messaging.MessageHeaderFlags.Query;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NameError;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;

@@ -1,9 +1,9 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import com.softwarecraftsmen.Unsigned32BitInteger;
-import com.softwarecraftsmen.Unsigned8BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned32BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 
 public class ByteArrayReader

@@ -3,14 +3,14 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import com.softwarecraftsmen.Unsigned4BitInteger;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned4BitInteger.Zero;
-import static com.softwarecraftsmen.Unsigned4BitInteger.One;
-import static com.softwarecraftsmen.Unsigned4BitInteger.Two;
-import static com.softwarecraftsmen.Unsigned4BitInteger.Three;
-import static com.softwarecraftsmen.Unsigned4BitInteger.Four;
-import static com.softwarecraftsmen.Unsigned4BitInteger.Five;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.Zero;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.One;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.Two;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.Three;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.Four;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned4BitInteger.Five;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.String.format;

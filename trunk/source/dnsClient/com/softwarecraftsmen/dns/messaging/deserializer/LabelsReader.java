@@ -1,7 +1,7 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
-import com.softwarecraftsmen.Unsigned8BitInteger;
-import static com.softwarecraftsmen.Unsigned8BitInteger.Zero;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger.Zero;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

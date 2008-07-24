@@ -2,7 +2,7 @@ package com.softwarecraftsmen.dns.messaging.deserializer;
 
 import static com.softwarecraftsmen.ConvenientArrayList.toList;
 import static com.softwarecraftsmen.ConvenientArrayList.toResourceRecordList;
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import com.softwarecraftsmen.dns.DomainName;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
 import com.softwarecraftsmen.dns.HostName;

@@ -7,10 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="JUnit" level="project" />
-    <orderEntry type="library" name="Hamcrest" level="project" />
+    <orderEntry type="module" module-name="unsignedIntegers" />
     <orderEntry type="module" module-name="dnsClient" />
     <orderEntry type="library" name="Annotations" level="project" />
+    <orderEntry type="library" name="JUnit" level="project" />
+    <orderEntry type="library" name="Hamcrest" level="project" />
     <orderEntryProperties />
   </component>
 </module>

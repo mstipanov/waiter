@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.ToString.string;
+import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.dns.*;
 import com.softwarecraftsmen.dns.messaging.deserializer.BadlyFormedDnsMessageException;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
@@ -42,7 +42,7 @@ public class GenericName implements Name
 	{
 		return new PointerName(labels);
 	}
-	
+
 	@NotNull
 	public ServiceName toServiceName() throws BadlyFormedDnsMessageException
 	{

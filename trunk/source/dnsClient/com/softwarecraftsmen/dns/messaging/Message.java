@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.ToString.string;
+import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.dns.Name;
 import static com.softwarecraftsmen.dns.messaging.MessageHeader.outboundMessageHeader;
 import static com.softwarecraftsmen.dns.messaging.MessageId.messageId;

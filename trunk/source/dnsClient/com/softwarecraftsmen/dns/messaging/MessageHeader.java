@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.ToString.string;
+import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.Unsigned16BitInteger;
 import static com.softwarecraftsmen.Unsigned16BitInteger.Zero;
 import static com.softwarecraftsmen.Unsigned16BitInteger.One;

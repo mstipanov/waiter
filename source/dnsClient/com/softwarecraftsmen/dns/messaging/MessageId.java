@@ -4,8 +4,8 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.MaximumValue;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.MaximumValue;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;

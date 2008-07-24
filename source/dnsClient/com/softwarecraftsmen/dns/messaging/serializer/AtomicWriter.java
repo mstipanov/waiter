@@ -1,9 +1,9 @@
 package com.softwarecraftsmen.dns.messaging.serializer;
 
 import com.softwarecraftsmen.CanNeverHappenException;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import com.softwarecraftsmen.Unsigned32BitInteger;
-import com.softwarecraftsmen.Unsigned8BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned32BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger;
 import static com.softwarecraftsmen.dns.NonAsciiAndControlCharactersAreNotSupportedInCharacterStringsException.throwExceptionIfUnsupportedCharacterCode;
 import com.softwarecraftsmen.dns.Seconds;
 import org.jetbrains.annotations.NotNull;

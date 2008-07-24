@@ -1,6 +1,5 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
-import com.softwarecraftsmen.Unsigned32BitInteger;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.ServiceInformation;
 import com.softwarecraftsmen.dns.ServiceName;

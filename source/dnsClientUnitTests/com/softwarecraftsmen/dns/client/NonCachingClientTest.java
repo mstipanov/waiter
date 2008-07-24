@@ -1,8 +1,8 @@
 package com.softwarecraftsmen.dns.client;
 
 import com.softwarecraftsmen.Optional;
-import static com.softwarecraftsmen.Unsigned16BitInteger.Zero;
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import com.softwarecraftsmen.dns.*;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
 import static com.softwarecraftsmen.dns.HostInformation.hostInformation;

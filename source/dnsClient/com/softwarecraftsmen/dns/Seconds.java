@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns;
 
-import com.softwarecraftsmen.Unsigned32BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned32BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NotNull;

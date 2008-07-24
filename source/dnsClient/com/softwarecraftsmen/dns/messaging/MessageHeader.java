@@ -4,10 +4,10 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.Unsigned16BitInteger;
-import static com.softwarecraftsmen.Unsigned16BitInteger.Zero;
-import static com.softwarecraftsmen.Unsigned16BitInteger.One;
-import static com.softwarecraftsmen.Unsigned16BitInteger.unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.One;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import static com.softwarecraftsmen.dns.messaging.MessageHeaderFlags.Query;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;

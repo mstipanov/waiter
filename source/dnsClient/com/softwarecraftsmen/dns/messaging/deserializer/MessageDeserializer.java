@@ -10,7 +10,7 @@ import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import static com.softwarecraftsmen.dns.messaging.MessageHeader.SizeOfDnsMessageHeader;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
 import com.softwarecraftsmen.dns.Name;
-import com.softwarecraftsmen.Unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.String.format;

@@ -1,6 +1,5 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
-import com.softwarecraftsmen.Unsigned32BitInteger;
 import com.softwarecraftsmen.dns.Seconds;
 import static com.softwarecraftsmen.dns.messaging.Class.Internet;
 import com.softwarecraftsmen.dns.messaging.GenericName;

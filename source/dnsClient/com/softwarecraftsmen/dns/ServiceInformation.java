@@ -1,7 +1,7 @@
 package com.softwarecraftsmen.dns;
 
 import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.Unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;

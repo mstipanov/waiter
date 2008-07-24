@@ -1,12 +1,21 @@
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.dns.*;
+import com.softwarecraftsmen.dns.DomainName;
+import com.softwarecraftsmen.dns.HostName;
+import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.PointerName;
+import com.softwarecraftsmen.dns.ServiceClassLabel;
+import com.softwarecraftsmen.dns.ServiceName;
+import com.softwarecraftsmen.dns.ServiceProtocolLabel;
 import com.softwarecraftsmen.dns.messaging.deserializer.BadlyFormedDnsMessageException;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static java.lang.String.format;
+import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import java.util.List;
 import static java.util.Locale.UK;
 
@@ -85,5 +94,38 @@ public class GenericName implements Name
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		throw new UnsupportedOperationException("Write some code!");
+	}
+
+	@NotNull
+	public List<String> toLabels()
+	{
+		return new ArrayList<String>(labels);
+	}
+
+	@NotNull
+	public static GenericName genericName(final @NotNull String dottedName)
+	{
+		final String[] labels = dottedName.split("\\.");
+		return new GenericName(asList(labels));
+	}
+
+	public boolean equals(final @Nullable Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+
+		final GenericName that = (GenericName) o;
+		return labels.equals(that.labels);
+	}
+
+	public int hashCode()
+	{
+		return labels.hashCode();
 	}
 }

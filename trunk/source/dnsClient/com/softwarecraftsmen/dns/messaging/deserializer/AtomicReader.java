@@ -6,6 +6,7 @@ import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Four;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Sixteen;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger;
 import com.softwarecraftsmen.dns.*;
+import static com.softwarecraftsmen.dns.MailBox.mailBox;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolAddress;
 import com.softwarecraftsmen.dns.messaging.Class;
@@ -160,7 +161,7 @@ public class AtomicReader
 			throw new BadlyFormedDnsMessageException("A mailbox must have more than one label");
 		}
 		final String userName = labels.get(0);
-		return new MailBox(userName, new DomainName(labels.subList(1, labels.size() - 1)));
+		return mailBox(userName, new DomainName(labels.subList(1, labels.size() - 1)));
 	}
 
 	private List<String> readLabels()

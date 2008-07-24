@@ -22,13 +22,13 @@ public class DomainNameTest
 	@Test
 	public void constructsWithTerminalEmptyLabel()
 	{
-		assertThat(new DomainName("softwarecraftsmen", "com"), hasToString(equalTo("softwarecraftsmen.com.")));
+		assertThat(new DomainName("softwarecraftsmen", "com"), hasToString(equalTo("DomainName(softwarecraftsmen.com.)")));
 	}
 
 	@Test
 	public void doesNotConstructsWithEmptyTerminalLabelWhenSpecified()
 	{
-		assertThat(new DomainName("softwarecraftsmen", "com", ""), hasToString(equalTo("softwarecraftsmen.com.")));
+		assertThat(new DomainName("softwarecraftsmen", "com", ""), hasToString(equalTo("DomainName(softwarecraftsmen.com.)")));
 	}
 
 	@Test(expected = EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd.class)
@@ -81,13 +81,13 @@ public class DomainNameTest
 	@Test
 	public void nameHelperStaticMethodWorks()
 	{
-		assertThat(domainName("softwarecraftsmen.com"), hasToString(equalTo("softwarecraftsmen.com.")));
+		assertThat(domainName("softwarecraftsmen.com"), hasToString(equalTo("DomainName(softwarecraftsmen.com.)")));
 	}
 
 	@Test
 	public void nameHelperStaticMethodWorksWithRootDomain()
 	{
-		assertThat(domainName("softwarecraftsmen.com."), hasToString(equalTo("softwarecraftsmen.com.")));
+		assertThat(domainName("softwarecraftsmen.com."), hasToString(equalTo("DomainName(softwarecraftsmen.com.)")));
 	}
 
 	@Test
@@ -95,7 +95,6 @@ public class DomainNameTest
 	{
 		assertThat(serialize(domainName("mydomain.com")), is(equalTo(new byte[]
 		{
-			0x03, 0x77,	0x77, 0x77,
 			0x08, 0x6D, 0x79, 0x64,	0x6F, 0x6D,	0x61, 0x69,	0x6E,
 			0x03, 0x63, 0x6F, 0x6D,
             0x00

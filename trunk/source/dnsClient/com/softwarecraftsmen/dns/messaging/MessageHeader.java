@@ -3,14 +3,12 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
-import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
-import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.One;
-import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import static com.softwarecraftsmen.dns.messaging.MessageHeaderFlags.Query;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import static com.softwarecraftsmen.toString.ToString.string;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -103,27 +101,28 @@ public class MessageHeader implements Serializable
 		}
 
 		final MessageHeader that = (MessageHeader) o;
-		if (numberOfEntriesInQuestionSection != that.numberOfEntriesInQuestionSection)
-		{
-			return false;
-		}
-		if (numberOfNameServerRecordsInAuthoritySection != that.numberOfNameServerRecordsInAuthoritySection)
-		{
-			return false;
-		}
-		if (numberOfResourceRecordsInAdditionalRecordsAnswerSection != that.numberOfResourceRecordsInAdditionalRecordsAnswerSection)
-		{
-			return false;
-		}
-		if (numberOfResourceRecordsInAnswerSection != that.numberOfResourceRecordsInAnswerSection)
-		{
-			return false;
-		}
+
 		if (!messageHeaderFlags.equals(that.messageHeaderFlags))
 		{
 			return false;
 		}
 		if (!messageId.equals(that.messageId))
+		{
+			return false;
+		}
+		if (!numberOfEntriesInQuestionSection.equals(that.numberOfEntriesInQuestionSection))
+		{
+			return false;
+		}
+		if (!numberOfNameServerRecordsInAuthoritySection.equals(that.numberOfNameServerRecordsInAuthoritySection))
+		{
+			return false;
+		}
+		if (!numberOfResourceRecordsInAdditionalRecordsAnswerSection.equals(that.numberOfResourceRecordsInAdditionalRecordsAnswerSection))
+		{
+			return false;
+		}
+		if (!numberOfResourceRecordsInAnswerSection.equals(that.numberOfResourceRecordsInAnswerSection))
 		{
 			return false;
 		}

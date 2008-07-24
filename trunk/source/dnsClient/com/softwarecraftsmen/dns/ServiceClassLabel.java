@@ -1,12 +1,10 @@
 package com.softwarecraftsmen.dns;
 
+import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 
-import java.io.Serializable;
-
-public class ServiceClassLabel implements Serializable
+public class ServiceClassLabel implements Label
 {
 	private final String label;
 
@@ -65,5 +63,11 @@ public class ServiceClassLabel implements Serializable
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		writer.writeCharacterString(label);
+	}
+
+	@NotNull
+	public String toStringRepresentation()
+	{
+		return label;
 	}
 }

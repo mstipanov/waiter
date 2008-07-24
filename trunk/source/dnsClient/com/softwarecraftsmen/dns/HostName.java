@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns;
 
-import com.softwarecraftsmen.toString.ToString;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class HostName extends AbstractName
 	@NotNull
 	public String toString()
 	{
-		return ToString.string(this, super.toString());
+		return string(this, super.toString());
 	}
 
 	@NotNull

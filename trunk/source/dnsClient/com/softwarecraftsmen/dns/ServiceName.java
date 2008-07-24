@@ -1,8 +1,11 @@
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceName implements Name
 {
@@ -18,7 +21,7 @@ public class ServiceName implements Name
 	}
 
 	@NotNull
-	public static ServiceName serviceName(final ServiceClassLabel serviceClassLabel, final ServiceProtocolLabel serviceProtocolLabel, final DomainName domainName)
+	public static ServiceName serviceName(final @NotNull ServiceClassLabel serviceClassLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
 	{
 		return new ServiceName(serviceClassLabel, serviceProtocolLabel, domainName);
 	}
@@ -72,5 +75,16 @@ public class ServiceName implements Name
 		serviceClassLabel.serialize(writer);
 		serviceProtocolLabel.serialize(writer);
 		domainName.serialize(writer);
+	}
+
+	@NotNull
+	public List<String> toLabels()
+	{
+		return new ArrayList<String>()
+		{{
+			add(serviceClassLabel.toStringRepresentation());
+			add(serviceProtocolLabel.toStringRepresentation());
+			addAll(domainName.toLabels());
+		}};
 	}
 }

@@ -2,8 +2,11 @@ package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static java.lang.String.format;
+import java.util.ArrayList;
+import java.util.List;
 import static java.util.Locale.UK;
 
 public class MailBox implements Name
@@ -21,12 +24,13 @@ public class MailBox implements Name
 		}
 	}
 
+	@NotNull
 	public String toString()
 	{
 		return format(UK, "%1$s@%2$s", userName, domainName);
 	}
 
-	public boolean equals(final Object o)
+	public boolean equals(final @Nullable Object o)
 	{
 		if (this == o)
 		{
@@ -53,5 +57,21 @@ public class MailBox implements Name
 	{
 		writer.writeCharacterString(userName);
 		domainName.serialize(writer);
+	}
+
+	@NotNull
+	public static MailBox mailBox(final @NotNull String userName, final @NotNull DomainName domainName)
+	{
+		return new MailBox(userName, domainName);
+	}
+
+	@NotNull
+	public List<String> toLabels()
+	{
+		return new ArrayList<String>()
+		{{
+			add(userName);
+			addAll(domainName.toLabels());
+		}};
 	}
 }

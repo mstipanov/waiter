@@ -3,14 +3,15 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.dns.Name;
 import static com.softwarecraftsmen.dns.messaging.MessageHeader.outboundMessageHeader;
 import static com.softwarecraftsmen.dns.messaging.MessageId.messageId;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -36,8 +37,6 @@ public class Message implements Serializable
 		this.additionalRecords = additionalRecords;
 	}
 
-
-
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		messageHeader.serialize(writer);
@@ -47,13 +46,14 @@ public class Message implements Serializable
 		writeResourceRecordsWhichMayHoldAdditionalInformation(writer);
 	}
 
+	@NotNull
 	public String toString()
 	{
 		return string(this, messageHeader, questions, answers, nameServerAuthorities, additionalRecords);
 	}
 
 	@SuppressWarnings({"RedundantIfStatement"})
-	public boolean equals(final Object o)
+	public boolean equals(final @Nullable Object o)
 	{
 		if (this == o)
 		{

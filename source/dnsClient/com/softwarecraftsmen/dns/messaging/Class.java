@@ -27,7 +27,7 @@ public enum Class implements Serializable
 	private final String description;
 	private final boolean obsolete;
 	private final boolean reserved;
-	private final boolean onlyQClass;
+	private final boolean isOnlyQClass;
 
 	private Class(final @NotNull Unsigned16BitInteger value, final @NotNull String description, final boolean obsolete, final boolean reserved, final boolean isOnlyQClass)
 	{
@@ -35,7 +35,7 @@ public enum Class implements Serializable
 		this.description = description;
 		this.obsolete = obsolete;
 		this.reserved = reserved;
-		onlyQClass = isOnlyQClass;
+		this.isOnlyQClass = isOnlyQClass;
 	}
 
 	public void serialize(final @NotNull AtomicWriter writer)
@@ -43,11 +43,13 @@ public enum Class implements Serializable
 		writer.writeUnsigned16BitInteger(value);
 	}
 
+	@NotNull
 	public String toString()
 	{
-		return format(UK, "%1$s (%2$s)", name(), description);
+		return format(UK, "%1$s (%2$s) (%3$s) (%4$s) (%5$s)", name(), description, obsolete ? "obsolete" : "current", reserved ? "reserved" : "unreserved",  isOnlyQClass ? "is only QCLASS" : "is not only QCLASS");
 	}
 
+	@NotNull
 	public static Class fromUnsigned16BitInteger(final @NotNull Unsigned16BitInteger value)
 	{
 		for (Class aClass : values())

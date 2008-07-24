@@ -31,10 +31,10 @@ Support internationalised domain names
 Support EDNS for >512 byte UDP
 
 Domain Changes
-Add a class to combine Weight and Priority to implement the rules in RFC2782 for SRV records to order servers
+Add a class to combine Weight and Priority to implement the rules in RFC2782 for SRV records to order servers; look at MailExchagne for ideas.
+Consider comparable on all Names... look at mail exchange for ideas.
 Implement AbstractResourceRecord.serialize
 Implement Serialize in all Names...
-Matches in Question will not work as reply is a GenericName and request wasn't...
 Add a class to represent labels and possibly character strings...
 Add all common IANA service names as a partial enumerated list to ServiceClassLabel.
 Move from string labels to a GenericLabel class

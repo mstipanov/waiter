@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns;
 
-import com.softwarecraftsmen.ToString;
+import com.softwarecraftsmen.toString.ToString;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

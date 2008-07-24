@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.ToString.string;
+import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.Unsigned16BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;

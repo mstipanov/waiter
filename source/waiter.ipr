@@ -240,6 +240,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dnsClient/dnsClient.iml" filepath="$PROJECT_DIR$/dnsClient/dnsClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/dnsClientUnitTests/dnsClientUnitTests.iml" filepath="$PROJECT_DIR$/dnsClientUnitTests/dnsClientUnitTests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/toString/toString.iml" filepath="$PROJECT_DIR$/toString/toString.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6.0_05" project-jdk-type="JavaSDK">

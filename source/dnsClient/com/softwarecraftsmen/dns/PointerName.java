@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.ToString.string;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.Inet4Address;
@@ -41,7 +41,7 @@ public class PointerName extends AbstractName
 		put(14, "e");
 		put(15, "f");
 	}};
-	
+
 	@NotNull
 	private static String[] toInternetProtocolVersion4Labels(final @NotNull byte[] address)
 	{

@@ -1,6 +1,7 @@
 package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.CanNeverHappenException;
+import com.softwarecraftsmen.toString.ToString;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +43,7 @@ public class SerializableInternetProtocolAddress<A extends InetAddress> implemen
 	@NotNull
 	public String toString()
 	{
-		return com.softwarecraftsmen.ToString.string(this, address);
+		return ToString.string(this, address);
 	}
 
 	public boolean equals(final @Nullable Object o)

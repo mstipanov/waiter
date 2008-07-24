@@ -69,6 +69,23 @@ public class MailExchange implements Comparable<MailExchange>, Serializable
 		}
 		final List<String> thisLabels = reverseLabelsInHostName(this);
 		final List<String> thatLabels = reverseLabelsInHostName(that);
+
+		if (thisLabels.size() < thatLabels.size())
+		{
+			return -1;
+		}
+		if (thisLabels.size() > thatLabels.size())
+		{
+			return 1;
+		}
+		for(int index = 0; index < thisLabels.size(); index++)
+		{
+			final int compareTo = thisLabels.get(index).compareTo(thatLabels.get(index));
+			if (compareTo != 0)
+			{
+				return compareTo;
+			}
+		}
 		return 0;
 	}
 

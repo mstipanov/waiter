@@ -2,7 +2,7 @@ package com.softwarecraftsmen.dns.resourceRecords;
 
 import com.softwarecraftsmen.dns.Name;
 import com.softwarecraftsmen.dns.Seconds;
-import com.softwarecraftsmen.dns.messaging.Class;
+import com.softwarecraftsmen.dns.messaging.QClass;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
@@ -17,12 +17,12 @@ public abstract class AbstractResourceRecord<S extends Name, T extends Serializa
 {
 	private final S owner;
 	private final InternetClassType internetClassType;
-	private final com.softwarecraftsmen.dns.messaging.Class qClass;
+	private final QClass qClass;
 	private final Seconds timeToLive;
 	private final T data;
 
 	// TODO: Create a Seconds time and use it here and for StatementOfAuthority
-	public AbstractResourceRecord(final @NotNull S owner, final @NotNull InternetClassType internetClassType, final @NotNull Class qClass, final @NotNull Seconds timeToLive, final @NotNull T data)
+	public AbstractResourceRecord(final @NotNull S owner, final @NotNull InternetClassType internetClassType, final @NotNull QClass qClass, final @NotNull Seconds timeToLive, final @NotNull T data)
 	{
 		this.owner = owner;
 		this.internetClassType = internetClassType;

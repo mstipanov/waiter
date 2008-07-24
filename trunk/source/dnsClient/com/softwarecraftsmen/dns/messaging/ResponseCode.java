@@ -41,7 +41,7 @@ public enum ResponseCode
 	}
 
 	@NotNull
-	public static ResponseCode responseCodeFromNibble(final Unsigned4BitInteger unsigned4BitInteger)
+	public static ResponseCode responseCode(final Unsigned4BitInteger unsigned4BitInteger)
 	{
 		for (ResponseCode responseCode : values())
 		{
@@ -50,7 +50,7 @@ public enum ResponseCode
 				return responseCode;
 			}
 		}
-		throw new IllegalArgumentException(format(UK, "No ResponseCode known for nibble %1$s", unsigned4BitInteger));
+		throw new IllegalArgumentException(format(UK, "No ResponseCode known for %1$s", unsigned4BitInteger));
 	}
 
 	public boolean isError()

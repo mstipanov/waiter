@@ -3,14 +3,13 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import org.junit.Test;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.serialize;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
-import com.softwarecraftsmen.dns.messaging.OperationCode;
-import com.softwarecraftsmen.dns.messaging.MessageHeaderFlags;
+import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.serialize;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger.Zero;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 public class MessageHeaderFlagsTest
 {
@@ -23,6 +22,6 @@ public class MessageHeaderFlagsTest
 	@Test
 	public void serializesSomethingElseCorrectly()
 	{
-		assertThat(serialize(new MessageHeaderFlags(true, OperationCode.Query, false, false, true, true, NoErrorCondition)), is(equalTo(new byte[]{65, 0x02})));
+		assertThat(serialize(new MessageHeaderFlags(true, OperationCode.Query, false, false, true, true, Zero, NoErrorCondition)), is(equalTo(new byte[]{65, 0x02})));
 	}
 }

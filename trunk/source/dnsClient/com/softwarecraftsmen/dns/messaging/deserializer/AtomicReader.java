@@ -9,16 +9,18 @@ import com.softwarecraftsmen.dns.*;
 import static com.softwarecraftsmen.dns.MailBox.mailBox;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolAddress;
-import com.softwarecraftsmen.dns.messaging.Class;
+import com.softwarecraftsmen.dns.messaging.QClass;
 import com.softwarecraftsmen.dns.messaging.GenericName;
 import com.softwarecraftsmen.dns.messaging.GenericResourceRecordData;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.MessageHeaderFlags;
 import com.softwarecraftsmen.dns.messaging.MessageId;
 import com.softwarecraftsmen.dns.messaging.OperationCode;
-import static com.softwarecraftsmen.dns.messaging.OperationCode.operationCodeFromUnsigned4BitInteger;
+import static com.softwarecraftsmen.dns.messaging.OperationCode.operationCode;
 import com.softwarecraftsmen.dns.messaging.ResponseCode;
-import static com.softwarecraftsmen.dns.messaging.ResponseCode.responseCodeFromNibble;
+import static com.softwarecraftsmen.dns.messaging.QClass.qclass;
+import static com.softwarecraftsmen.dns.messaging.InternetClassType.internetClassType;
+import static com.softwarecraftsmen.dns.messaging.ResponseCode.responseCode;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.String.format;
@@ -54,7 +56,7 @@ public class AtomicReader
 		final OperationCode operationCode;
 		try
 		{
-			operationCode = operationCodeFromUnsigned4BitInteger(unsigned16BitInteger.getUnsigned4BitIntegerIetf(1));
+			operationCode = operationCode(unsigned16BitInteger.getUnsigned4BitIntegerIetf(1));
 		}
 		catch (IllegalArgumentException exception)
 		{
@@ -63,21 +65,19 @@ public class AtomicReader
 		final boolean authoritativeAnswer = unsigned16BitInteger.getBitIetf(5);
 		final boolean truncation = unsigned16BitInteger.getBitIetf(6);
 		final boolean recursionDesired = unsigned16BitInteger.getBitIetf(7);
-
 		final boolean recursionAvailable = unsigned16BitInteger.getBitIetf(8);
-		// TODO: Include z in messages
 		final Unsigned3BitInteger z = unsigned16BitInteger.getThreeBitsIetf(9);
 
 		final ResponseCode responseCode;
 		try
 		{
-			responseCode = responseCodeFromNibble(unsigned16BitInteger.getUnsigned4BitIntegerIetf(12));
+			responseCode = responseCode(unsigned16BitInteger.getUnsigned4BitIntegerIetf(12));
 		}
 		catch (IllegalArgumentException exception)
 		{
 			throw new BadlyFormedDnsMessageException("Could not deserialize header flag response code", exception);
 		}
-		return new MessageHeaderFlags(isResponse, operationCode, authoritativeAnswer, truncation, recursionDesired, recursionAvailable, responseCode);
+		return new MessageHeaderFlags(isResponse, operationCode, authoritativeAnswer, truncation, recursionDesired, recursionAvailable, z, responseCode);
 	}
 
 	@NotNull
@@ -113,24 +113,24 @@ public class AtomicReader
 	{
 		try
 		{
-			return InternetClassType.fromUnsigned16BitInteger(reader.readUnsigned16BitInteger());
+			return internetClassType(reader.readUnsigned16BitInteger());
 		}
 		catch (IllegalArgumentException e)
 		{
-			throw new BadlyFormedDnsMessageException("Could not understand Class value", e);
+			throw new BadlyFormedDnsMessageException("Could not understand QClass value", e);
 		}
 	}
 
 	@NotNull
-	public Class readClass() throws BadlyFormedDnsMessageException
+	public QClass readClass() throws BadlyFormedDnsMessageException
 	{
 		try
 		{
-			return Class.fromUnsigned16BitInteger(reader.readUnsigned16BitInteger());
+			return qclass(reader.readUnsigned16BitInteger());
 		}
 		catch (IllegalArgumentException e)
 		{
-			throw new BadlyFormedDnsMessageException("Could not understand Class value", e);
+			throw new BadlyFormedDnsMessageException("Could not understand QClass value", e);
 		}
 	}
 

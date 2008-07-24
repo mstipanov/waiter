@@ -9,12 +9,12 @@ import static com.softwarecraftsmen.dns.HostName.hostName;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
 import com.softwarecraftsmen.dns.messaging.GenericName;
+import static com.softwarecraftsmen.dns.messaging.GenericName.genericName;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.A;
 import com.softwarecraftsmen.dns.messaging.Message;
 import com.softwarecraftsmen.dns.messaging.MessageHeader;
 import com.softwarecraftsmen.dns.messaging.MessageHeaderFlags;
 import com.softwarecraftsmen.dns.messaging.MessageId;
-import static com.softwarecraftsmen.dns.messaging.GenericName.genericName;
 import static com.softwarecraftsmen.dns.messaging.OperationCode.Status;
 import static com.softwarecraftsmen.dns.messaging.Question.internetQuestion;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
@@ -22,6 +22,8 @@ import static com.softwarecraftsmen.dns.resourceRecords.CanonicalNameResourceRec
 import static com.softwarecraftsmen.dns.resourceRecords.InternetProtocolVersion4AddressResourceRecord.internetProtocolVersion4AddressResourceRecord;
 import static com.softwarecraftsmen.dns.resourceRecords.NameServerResourceRecord.nameServerResourceRecord;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger.unsigned3BitInteger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,12 +49,13 @@ public class MessageDeserializerTest
 	@Test
 	public void deserializeResourceRecordsInAnswers() throws BadlyFormedDnsMessageException, UnknownHostException
 	{
+		final Unsigned3BitInteger z = unsigned3BitInteger(6);
 		final Message expectedMessage = new Message
 		(
 			new MessageHeader
 			(
 				new MessageId(unsigned16BitInteger(10)),
-				new MessageHeaderFlags(true, Status, false, false, true, true, NoErrorCondition),
+				new MessageHeaderFlags(true, Status, false, false, true, true, z, NoErrorCondition),
 				unsigned16BitInteger(1),
 				unsigned16BitInteger(5),
 				unsigned16BitInteger(7),

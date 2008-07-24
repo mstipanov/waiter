@@ -31,7 +31,7 @@ public enum OperationCode
 	}
 
 	@NotNull
-	public static OperationCode operationCodeFromUnsigned4BitInteger(final @NotNull Unsigned4BitInteger unsigned4BitInteger)
+	public static OperationCode operationCode(final @NotNull Unsigned4BitInteger unsigned4BitInteger)
 	{
 		for (OperationCode operationCode : values())
 		{
@@ -40,6 +40,6 @@ public enum OperationCode
 				return operationCode;
 			}
 		}
-		throw new IllegalArgumentException(format(UK, "No OperationCode known for nibble %1$s", unsigned4BitInteger));
+		throw new IllegalArgumentException(format(UK, "No OperationCode known for %1$s", unsigned4BitInteger));
 	}
 }

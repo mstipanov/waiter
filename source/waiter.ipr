@@ -239,6 +239,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dnsClient/dnsClient.iml" filepath="$PROJECT_DIR$/dnsClient/dnsClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dnsClientAcceptanceTests/dnsClientAcceptanceTests.iml" filepath="$PROJECT_DIR$/dnsClientAcceptanceTests/dnsClientAcceptanceTests.iml" />
       <module fileurl="file://$PROJECT_DIR$/dnsClientUnitTests/dnsClientUnitTests.iml" filepath="$PROJECT_DIR$/dnsClientUnitTests/dnsClientUnitTests.iml" />
       <module fileurl="file://$PROJECT_DIR$/toString/toString.iml" filepath="$PROJECT_DIR$/toString/toString.iml" />
       <module fileurl="file://$PROJECT_DIR$/unsignedIntegers/unsignedIntegers.iml" filepath="$PROJECT_DIR$/unsignedIntegers/unsignedIntegers.iml" />

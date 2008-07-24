@@ -1,10 +1,11 @@
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import static com.softwarecraftsmen.toString.ToString.string;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ServiceInformation implements Serializable
 {
@@ -35,7 +36,7 @@ public class ServiceInformation implements Serializable
 	}
 
 	@SuppressWarnings({"RedundantIfStatement"})
-	public boolean equals(final Object o)
+	public boolean equals(final @Nullable Object o)
 	{
 		if (this == o)
 		{

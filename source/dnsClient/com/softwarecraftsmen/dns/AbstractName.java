@@ -67,6 +67,17 @@ public abstract class AbstractName implements Name
 	}
 
 	@NotNull
+	public List<String> toLabels()
+	{
+		final List<String> stringLabels = new ArrayList<String>();
+		for (char[] label : labels)
+		{
+			stringLabels.add(valueOf(label));
+		}
+		return stringLabels;
+	}
+
+	@NotNull
 	public String toDotSeparatedString()
 	{
 		final StringWriter writer = new StringWriter();

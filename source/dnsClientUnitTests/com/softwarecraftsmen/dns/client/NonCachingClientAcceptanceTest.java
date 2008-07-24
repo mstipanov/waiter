@@ -1,18 +1,25 @@
 package com.softwarecraftsmen.dns.client;
 
 import com.softwarecraftsmen.Optional;
-import com.softwarecraftsmen.dns.*;
+import com.softwarecraftsmen.dns.DomainName;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
+import com.softwarecraftsmen.dns.HostInformation;
+import com.softwarecraftsmen.dns.HostName;
 import static com.softwarecraftsmen.dns.HostName.hostName;
+import com.softwarecraftsmen.dns.MailExchange;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion6Address;
+import com.softwarecraftsmen.dns.ServiceClassLabel;
 import static com.softwarecraftsmen.dns.ServiceClassLabel.serviceClass;
+import com.softwarecraftsmen.dns.ServiceInformation;
 import static com.softwarecraftsmen.dns.ServiceProtocolLabel.TCP;
+import com.softwarecraftsmen.dns.Text;
 import com.softwarecraftsmen.dns.client.resolvers.SynchronousDnsResolver;
 import static com.softwarecraftsmen.dns.client.serverAddressFinders.BindLikeServerAddressFinder.CachedBindLikeServerAddressFinder;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.number.OrderingComparisons.greaterThan;
+import org.junit.Assert;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +41,7 @@ public class NonCachingClientAcceptanceTest
 		final Set<Inet4Address> version4Addresses = nonCachingClient.findAllInternetProtocolVersion4Addresses(GoogleAliasHostName);
 		assertThat(version4Addresses.size(), is(greaterThan(0)));
 	}
-	
+
 	@Test
 	public void findAllInternetProtocolVersion4AddressesForCanonicalName()
 	{
@@ -96,7 +103,7 @@ public class NonCachingClientAcceptanceTest
 	public void findCanonicalNameHasAValueIfNameIsAlsoCanonical()
 	{
 		final Optional<HostName> canonicalName = nonCachingClient.findCanonicalName(GoogleCanonicalHostName);
-		assertThat(canonicalName.value(), is(equalTo(GoogleCanonicalHostName)));
+		Assert.assertTrue(canonicalName.isEmpty());
 	}
 
 	@Test
@@ -118,7 +125,7 @@ public class NonCachingClientAcceptanceTest
 	{
 		// 4321:0:1:2:3:4:567:89ab
 		final Optional<HostName> resolvedName = nonCachingClient.findNameFromInternetProtocolVersion6Address(serializableInternetProtocolVersion6Address(0x4321, 0x0, 0x1, 0x2, 0x3, 0x4, 0x567, 0x89ab).address);
-		assertThat(resolvedName.size(), is(equalTo(0)));		
+		assertThat(resolvedName.size(), is(equalTo(0)));
 	}
 
 	@Test

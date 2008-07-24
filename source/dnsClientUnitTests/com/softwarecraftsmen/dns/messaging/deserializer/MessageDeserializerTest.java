@@ -2,24 +2,26 @@ package com.softwarecraftsmen.dns.messaging.deserializer;
 
 import static com.softwarecraftsmen.ConvenientArrayList.toList;
 import static com.softwarecraftsmen.ConvenientArrayList.toResourceRecordList;
-import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import com.softwarecraftsmen.dns.DomainName;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
 import com.softwarecraftsmen.dns.HostName;
 import static com.softwarecraftsmen.dns.HostName.hostName;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
+import com.softwarecraftsmen.dns.messaging.GenericName;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.A;
 import com.softwarecraftsmen.dns.messaging.Message;
 import com.softwarecraftsmen.dns.messaging.MessageHeader;
 import com.softwarecraftsmen.dns.messaging.MessageHeaderFlags;
 import com.softwarecraftsmen.dns.messaging.MessageId;
+import static com.softwarecraftsmen.dns.messaging.GenericName.genericName;
 import static com.softwarecraftsmen.dns.messaging.OperationCode.Status;
 import static com.softwarecraftsmen.dns.messaging.Question.internetQuestion;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
 import static com.softwarecraftsmen.dns.resourceRecords.CanonicalNameResourceRecord.canonicalNameResourceRecord;
 import static com.softwarecraftsmen.dns.resourceRecords.InternetProtocolVersion4AddressResourceRecord.internetProtocolVersion4AddressResourceRecord;
 import static com.softwarecraftsmen.dns.resourceRecords.NameServerResourceRecord.nameServerResourceRecord;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,7 +31,7 @@ import java.net.UnknownHostException;
 
 public class MessageDeserializerTest
 {
-	private static final HostName AliasName = hostName("mail.google.com");
+	private static final GenericName AliasName = genericName("mail.google.com");
 	private static final HostName CanonicalName = hostName("googlemail.l.google.com");
 	private static final DomainName DomainName = domainName("l.google.com");
 	private static final HostName NameServer1 = hostName("a.l.google.com");
@@ -59,7 +61,7 @@ public class MessageDeserializerTest
 			toList(internetQuestion(AliasName, A)),
 			toResourceRecordList
 			(
-				canonicalNameResourceRecord(AliasName, seconds(45674), CanonicalName),
+				canonicalNameResourceRecord(AliasName.toHostName(), seconds(45674), CanonicalName),
 				internetProtocolVersion4AddressResourceRecord(CanonicalName, seconds(169), serializableInternetProtocolVersion4Address(64, 233, 183, 83)),
 				internetProtocolVersion4AddressResourceRecord(CanonicalName, seconds(169), serializableInternetProtocolVersion4Address(64, 233, 183, 17)),
 				internetProtocolVersion4AddressResourceRecord(CanonicalName, seconds(169), serializableInternetProtocolVersion4Address(64, 233, 183, 18)),
@@ -79,11 +81,11 @@ public class MessageDeserializerTest
 			(
 				internetProtocolVersion4AddressResourceRecord(NameServer1, seconds(56087), serializableInternetProtocolVersion4Address(209, 85, 139, 9)),
 				internetProtocolVersion4AddressResourceRecord(NameServer2, seconds(20571), serializableInternetProtocolVersion4Address(64, 233, 179, 9)),
-				internetProtocolVersion4AddressResourceRecord(NameServer3, seconds(20571), serializableInternetProtocolVersion4Address(64, 233, -95, 9)),
+				internetProtocolVersion4AddressResourceRecord(NameServer3, seconds(20571), serializableInternetProtocolVersion4Address(64, 233, 161, 9)),
 				internetProtocolVersion4AddressResourceRecord(NameServer4, seconds(17446), serializableInternetProtocolVersion4Address(66, 249, 93, 9)),
 				internetProtocolVersion4AddressResourceRecord(NameServer5, seconds(19019), serializableInternetProtocolVersion4Address(209, 85, 137, 9)),
 				internetProtocolVersion4AddressResourceRecord(NameServer6, seconds(56709), serializableInternetProtocolVersion4Address(72, 14, 235, 9)),
-				internetProtocolVersion4AddressResourceRecord(NameServer7, seconds(17446), serializableInternetProtocolVersion4Address(64, 233, -89, 9))
+				internetProtocolVersion4AddressResourceRecord(NameServer7, seconds(17446), serializableInternetProtocolVersion4Address(64, 233, 167, 9))
 			)
 		);
 		final Message actualMessage = new MessageDeserializer(typicalResponseMessage).readMessage();

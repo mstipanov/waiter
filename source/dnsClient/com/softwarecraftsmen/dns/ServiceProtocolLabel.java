@@ -3,9 +3,7 @@ package com.softwarecraftsmen.dns;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
-
-public enum ServiceProtocolLabel implements Serializable
+public enum ServiceProtocolLabel implements Label
 {
 	TCP("_tcp"),
 	UDP("_udp");
@@ -15,9 +13,15 @@ public enum ServiceProtocolLabel implements Serializable
 	{
 		this.label = label;
 	}
-	
+
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		writer.writeCharacterString(label);
+	}
+
+	@NotNull
+	public String toStringRepresentation()
+	{
+		return label;
 	}
 }

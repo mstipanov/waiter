@@ -1,11 +1,14 @@
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import static com.softwarecraftsmen.toString.ToString.string;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.List;
 
 public class MailExchange implements Comparable<MailExchange>, Serializable
 {
@@ -59,7 +62,21 @@ public class MailExchange implements Comparable<MailExchange>, Serializable
 
 	public int compareTo(final @NotNull MailExchange that)
 	{
-		return this.preference.compareTo(that.preference);
+		final int initialPreference = this.preference.compareTo(that.preference);
+		if (initialPreference != 0)
+		{
+			return initialPreference;
+		}
+		final List<String> thisLabels = reverseLabelsInHostName(this);
+		final List<String> thatLabels = reverseLabelsInHostName(that);
+		return 0;
+	}
+
+	private List<String> reverseLabelsInHostName(final MailExchange mailExchange)
+	{
+		final List<String> labels = mailExchange.hostName.toLabels();
+		Collections.reverse(labels);
+		return labels;
 	}
 
 	public void serialize(final @NotNull AtomicWriter writer)

@@ -117,7 +117,7 @@ public class SerializableInternetProtocolAddress<A extends InetAddress> implemen
 	{
 		if (potentialUnsignedByte < 0 || potentialUnsignedByte > 255)
 		{
-			throw new IllegalArgumentException(format(UK, "%1%s is not between 0 and 255 inclusive"));
+			throw new IllegalArgumentException(format(UK, "%1$s is not between 0 and 255 inclusive", potentialUnsignedByte));
 		}
 	}
 

@@ -1,31 +1,31 @@
 /**
  * This file is Copyright © 2008 Software Craftsmen Limited. All Rights Reserved.
  */
-package com.softwarecraftsmen.dns.client.resolvers.protools;
+package com.softwarecraftsmen.dns.client.resolvers.protoolClients;
 
 import com.softwarecraftsmen.CanNeverHappenException;
-import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.MaximumDnsMessageSize;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import static java.lang.System.arraycopy;
 import java.net.SocketAddress;
 import static java.nio.ByteBuffer.wrap;
-import java.nio.channels.*;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.DatagramChannel;
+import java.nio.channels.SelectionKey;
 import static java.nio.channels.SelectionKey.OP_READ;
-import static java.nio.channels.SelectionKey.OP_CONNECT;
 import static java.nio.channels.SelectionKey.OP_WRITE;
+import java.nio.channels.Selector;
 import static java.util.Arrays.copyOf;
 
-public class TcpClient implements ProtocolClient
+public class UdpProtocolClient implements ProtocolClient
 {
 	private boolean closed;
-	private final SocketChannel channel;
+	private final DatagramChannel channel;
 	private final SelectionKey key;
 	private final SelectorKeyHelper selectorKeyHelper;
 
-	public TcpClient(@Nullable final SocketAddress localSocketAddress, @NotNull final SocketAddress remoteSocketAddress, final int blockInMilliseconds, final int numberOfRetries)
+	public UdpProtocolClient(@Nullable final SocketAddress localSocketAddress, @NotNull final SocketAddress remoteSocketAddress, final int blockInMilliseconds, final int numberOfRetries)
 	{
 		this.closed = true;
 		this.channel = openChannel();
@@ -39,9 +39,10 @@ public class TcpClient implements ProtocolClient
 			throw new IllegalStateException(exception);
 		}
 		key = obtainSelectorKey(openSelector());
-		selectorKeyHelper = new SelectorKeyHelper(key, blockInMilliseconds, numberOfRetries);
 		bind(localSocketAddress);
 		connect(remoteSocketAddress);
+
+		selectorKeyHelper = new SelectorKeyHelper(key, blockInMilliseconds, numberOfRetries);
 
 		this.closed = false;
 	}
@@ -117,11 +118,11 @@ public class TcpClient implements ProtocolClient
 		}
 	}
 
-	private SocketChannel openChannel()
+	private DatagramChannel openChannel()
 	{
 		try
 		{
-			return SocketChannel.open();
+			return DatagramChannel.open();
 		}
 		catch (final IOException exception)
 		{
@@ -185,32 +186,22 @@ public class TcpClient implements ProtocolClient
 	@NotNull
 	public byte[] sendAndReceive(final @NotNull byte[] sendData) throws IOException
 	{
+		selectorKeyHelper.blockUntilReady(OP_WRITE);
 		send(sendData);
 		return receive();
 	}
 
-	public void send(final @NotNull byte[] data) throws IOException
+	private void send(final @NotNull byte[] data) throws IOException
 	{
-		int length = data.length;
-		final byte[] dataWithTcpBytes = new byte[length + 2];
-		arraycopy(data, 0, dataWithTcpBytes, 2, length);		
-		dataWithTcpBytes[0] = (byte) ((length >>> 8) & 0xFF);
-		dataWithTcpBytes[1] = (byte) (length & 0xFF);
-
-		selectorKeyHelper.blockUntilReady(OP_CONNECT);
-		if (!channel.finishConnect())
-		{
-			throw new IOException("Could not connect to TCP address");
-		}
-		selectorKeyHelper.blockUntilReady(OP_WRITE);
-		channel.write(wrap(dataWithTcpBytes));
+		channel.write(wrap(data));
 	}
 
 	@NotNull
 	private byte[] receive() throws IOException
 	{
 		selectorKeyHelper.blockUntilReady(OP_READ);
-		byte[] buffer = new byte[MaximumDnsMessageSize];
+		final int maximumMessageSize = 512;
+		byte[] buffer = new byte[maximumMessageSize];
 		long numberOfBytesRead = channel.read(wrap(buffer));
 		if (numberOfBytesRead <= 0)
 		{

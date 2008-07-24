@@ -1,4 +1,4 @@
-package com.softwarecraftsmen.dns.client.resolvers.protools;
+package com.softwarecraftsmen.dns.client.resolvers.protoolClients;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -4,9 +4,9 @@
 package com.softwarecraftsmen.dns.client.resolvers;
 
 import com.softwarecraftsmen.dns.Name;
-import com.softwarecraftsmen.dns.client.resolvers.protools.ProtocolClient;
-import com.softwarecraftsmen.dns.client.resolvers.protools.TcpClient;
-import com.softwarecraftsmen.dns.client.resolvers.protools.UdpClient;
+import com.softwarecraftsmen.dns.client.resolvers.protoolClients.ProtocolClient;
+import com.softwarecraftsmen.dns.client.resolvers.protoolClients.TcpProtocolClient;
+import com.softwarecraftsmen.dns.client.resolvers.protoolClients.UdpProtocolClient;
 import com.softwarecraftsmen.dns.client.serverAddressFinders.ServerAddressFinder;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.Message;
@@ -57,7 +57,7 @@ public class SynchronousDnsResolver implements DnsResolver
 	private Message resolve(final @NotNull Message requestMessage, final InetSocketAddress remoteSocketAddress) throws DidNotReceiveAValidResponseMessageForRequestMessageException
 	{
 		final byte[] bytes = serialize(requestMessage);
-		final ProtocolClient protocolClient = (bytes.length < MaximumNonEDNS0UdpMessageSize) ? new UdpClient(null, remoteSocketAddress, 1, 100) : new TcpClient(null, remoteSocketAddress, 1, 100);
+		final ProtocolClient protocolClient = (bytes.length < MaximumNonEDNS0UdpMessageSize) ? new UdpProtocolClient(null, remoteSocketAddress, 1, 100) : new TcpProtocolClient(null, remoteSocketAddress, 1, 100);
 		try
 		{
 			return new MessageDeserializer(protocolClient.sendAndReceive(bytes)).readMessage();

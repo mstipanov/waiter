@@ -14,6 +14,6 @@ public class ClassTest
 	@Test
 	public void serializesAsTwoOctets()
 	{
-		assertThat(serialize(com.softwarecraftsmen.dns.messaging.Class.Internet), is(equalTo(new byte[] { 0x00, 0x01 })));
+		assertThat(serialize(QClass.Internet), is(equalTo(new byte[] { 0x00, 0x01 })));
 	}
 }

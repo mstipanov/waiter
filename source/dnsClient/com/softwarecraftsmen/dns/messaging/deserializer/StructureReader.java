@@ -6,6 +6,7 @@ import com.softwarecraftsmen.dns.messaging.GenericName;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.MessageHeader;
 import com.softwarecraftsmen.dns.messaging.Question;
+import com.softwarecraftsmen.dns.messaging.QClass;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +50,7 @@ public class StructureReader
 	{
 		final GenericName owner = reader.readGenericName();
 		final InternetClassType internetClassType = reader.readInternetClassType();
-		final com.softwarecraftsmen.dns.messaging.Class qClass = reader.readClass();
+		final QClass qClass = reader.readClass();
 		final Seconds timeToLive = reader.readTimeToLive();
 		try
 		{

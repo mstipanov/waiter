@@ -3,20 +3,21 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
-import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
 import static com.softwarecraftsmen.dns.messaging.OperationCode.Status;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.ServerFailure;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import static com.softwarecraftsmen.toString.ToString.string;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.Zero;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MessageHeaderFlags implements Serializable
 {
-	public static final MessageHeaderFlags Query = new MessageHeaderFlags(false, OperationCode.Query, false, false, true, false, NoErrorCondition);
+	public static final MessageHeaderFlags Query = new MessageHeaderFlags(false, OperationCode.Query, false, false, true, false, Unsigned3BitInteger.Zero, NoErrorCondition);
 
 	private final boolean isResponse;
 	private final OperationCode operationCode;
@@ -24,9 +25,10 @@ public class MessageHeaderFlags implements Serializable
 	private final boolean truncation;
 	private final boolean recursionDesired;
 	private final boolean recursionAvailable;
+	private final Unsigned3BitInteger z;
 	private final ResponseCode responseCode;
 
-	public MessageHeaderFlags(final boolean isResponse, final OperationCode operationCode, final boolean authoritativeAnswer, final boolean truncation, final boolean recursionDesired, final boolean recursionAvailable, final ResponseCode responseCode)
+	public MessageHeaderFlags(final boolean isResponse, final OperationCode operationCode, final boolean authoritativeAnswer, final boolean truncation, final boolean recursionDesired, final boolean recursionAvailable, final @NotNull Unsigned3BitInteger z, final @NotNull ResponseCode responseCode)
 	{
 		this.isResponse = isResponse;
 		this.operationCode = operationCode;
@@ -34,6 +36,7 @@ public class MessageHeaderFlags implements Serializable
 		this.truncation = truncation;
 		this.recursionDesired = recursionDesired;
 		this.recursionAvailable = recursionAvailable;
+		this.z = z;
 		this.responseCode = responseCode;
 		if (!isResponse)
 		{
@@ -68,7 +71,6 @@ public class MessageHeaderFlags implements Serializable
 		writer.writeUnsigned16BitInteger(unsigned16BitInteger);
 	}
 
-	//TODO: Test this code thoroughly
 	@SuppressWarnings({"RedundantIfStatement"})
 	public boolean matchesReply(final MessageHeaderFlags reply)
 	{
@@ -129,6 +131,10 @@ public class MessageHeaderFlags implements Serializable
 		{
 			return false;
 		}
+		if (!z.equals(that.z))
+		{
+			return false;
+		}
 		if (responseCode != that.responseCode)
 		{
 			return false;
@@ -158,12 +164,12 @@ public class MessageHeaderFlags implements Serializable
 	@NotNull
 	public static MessageHeaderFlags emptyReply(final @NotNull MessageHeaderFlags messageHeaderFlags)
 	{
-		return new MessageHeaderFlags(true, Status, false, false, messageHeaderFlags.recursionDesired, false, ServerFailure);
+		return new MessageHeaderFlags(true, Status, false, false, messageHeaderFlags.recursionDesired, false, Unsigned3BitInteger.Zero, ServerFailure);
 	}
 
 	@NotNull
 	public static MessageHeaderFlags reply(final boolean recursionDesired)
 	{
-		return new MessageHeaderFlags(true, Status, false, false, recursionDesired, false, NoErrorCondition);
+		return new MessageHeaderFlags(true, Status, false, false, recursionDesired, false, Unsigned3BitInteger.Zero, NoErrorCondition);
 	}
 }

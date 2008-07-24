@@ -22,7 +22,7 @@ public class QuestionTest
 	{
 		final AbstractName name = hostName("www.softwarecraftsmen.com");
 		final InternetClassType internetClassType = InternetClassType.DLV;
-		final com.softwarecraftsmen.dns.messaging.Class clazz = Class.Internet;
+		final QClass clazz = QClass.Internet;
 
 		final byte[] expected = new ArrayList<Byte>()
 		{

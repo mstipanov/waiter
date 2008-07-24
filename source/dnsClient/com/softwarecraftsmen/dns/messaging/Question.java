@@ -5,7 +5,7 @@ package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.dns.Name;
-import static com.softwarecraftsmen.dns.messaging.Class.Internet;
+import static com.softwarecraftsmen.dns.messaging.QClass.Internet;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;
@@ -15,9 +15,9 @@ public class Question implements Serializable
 {
 	private final Name name;
 	private final InternetClassType internetClassType;
-	private final com.softwarecraftsmen.dns.messaging.Class qClass;
+	private final QClass qClass;
 
-	public Question(final @NotNull Name name, final @NotNull InternetClassType internetClassType, final @NotNull Class qClass)
+	public Question(final @NotNull Name name, final @NotNull InternetClassType internetClassType, final @NotNull QClass qClass)
 	{
 		this.name = name;
 		this.internetClassType = internetClassType;

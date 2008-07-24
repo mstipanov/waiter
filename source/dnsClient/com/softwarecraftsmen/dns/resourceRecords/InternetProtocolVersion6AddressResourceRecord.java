@@ -3,7 +3,7 @@ package com.softwarecraftsmen.dns.resourceRecords;
 import com.softwarecraftsmen.dns.HostName;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.SerializableInternetProtocolAddress;
-import static com.softwarecraftsmen.dns.messaging.Class.Internet;
+import static com.softwarecraftsmen.dns.messaging.QClass.Internet;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.AAAA;
 import org.jetbrains.annotations.NotNull;
 

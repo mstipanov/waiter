@@ -33,7 +33,7 @@ public enum InternetClassType implements Serializable
 	A(1, "a host address")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.checkLength(Four);
 			return internetProtocolVersion4AddressResourceRecord(owner.toHostName(), timeToLive, reader.readInternetProtocolVersion4Address());
@@ -42,7 +42,7 @@ public enum InternetClassType implements Serializable
 	NS(2, "an authoritative name server")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return nameServerResourceRecord(owner.toDomainName(), timeToLive, reader.readHostName());
@@ -53,7 +53,7 @@ public enum InternetClassType implements Serializable
 	CNAME(5, "the canonical name for an alias")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return canonicalNameResourceRecord(owner.toHostName(), timeToLive, reader.readHostName());
@@ -62,7 +62,7 @@ public enum InternetClassType implements Serializable
 	SOA(6, "marks the start of a zone of authority")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return statementOfAuthorityResourceRecord(owner.toDomainName(), timeToLive, reader.readStatementOfAuthority());
@@ -76,7 +76,7 @@ public enum InternetClassType implements Serializable
 	PTR(12, "a domain name pointer")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return pointerResourceRecord(owner.toPointerName(), timeToLive, reader.readHostName());
@@ -85,7 +85,7 @@ public enum InternetClassType implements Serializable
 	HINFO(13, "host information")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			return hostInformationResourceRecord(owner.toHostName(), timeToLive, reader.readHostInformation());
 		}
@@ -94,7 +94,7 @@ public enum InternetClassType implements Serializable
 	MX(15, "mail exchange")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return mailExchangeResourceRecord(owner.toDomainName(), timeToLive, reader.readMailExchange());
@@ -103,7 +103,7 @@ public enum InternetClassType implements Serializable
 	TXT(16, "text strings")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			return textResourceRecord(owner.toHostName(), timeToLive, reader.readText());
 		}
@@ -122,7 +122,7 @@ public enum InternetClassType implements Serializable
 	AAAA(28, "IP6 Address")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.checkLength(Sixteen);
 			return internetProtocolVersion6AddressResourceRecord(owner.toHostName(), timeToLive, reader.readInternetProtocolVersion6Address());
@@ -135,7 +135,7 @@ public enum InternetClassType implements Serializable
 	SRV(33, "Server Selection")
 	{
 		@NotNull
-		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+		public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, @NotNull final Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 		{
 			reader.readLength();
 			return serviceInformationResourceRecord(owner.toServiceName(), timeToLive, reader.readServiceInformation());
@@ -197,7 +197,7 @@ public enum InternetClassType implements Serializable
 		return format(UK, "%1$s (%2$s)", name(), description);
 	}
 
-	public static InternetClassType fromUnsigned16BitInteger(final @NotNull Unsigned16BitInteger value)
+	public static InternetClassType internetClassType(final @NotNull Unsigned16BitInteger value)
 	{
 		for (InternetClassType internetClassType : values())
 		{
@@ -210,7 +210,7 @@ public enum InternetClassType implements Serializable
 	}
 
 	@NotNull
-	public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull com.softwarecraftsmen.dns.messaging.Class qClass, final @NotNull Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
+	public ResourceRecord<? extends Name, ? extends Serializable> createResourceRecord(final @NotNull GenericName owner, final @NotNull QClass qClass, final @NotNull Seconds timeToLive, final @NotNull AtomicReader reader) throws BadlyFormedDnsMessageException
 	{
 		return genericResourceRecord(owner, this, timeToLive, reader.readData());
 	}

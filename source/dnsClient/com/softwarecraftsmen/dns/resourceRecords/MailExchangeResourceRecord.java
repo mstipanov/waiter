@@ -3,7 +3,7 @@ package com.softwarecraftsmen.dns.resourceRecords;
 import com.softwarecraftsmen.dns.DomainName;
 import com.softwarecraftsmen.dns.MailExchange;
 import com.softwarecraftsmen.dns.Seconds;
-import static com.softwarecraftsmen.dns.messaging.Class.Internet;
+import static com.softwarecraftsmen.dns.messaging.QClass.Internet;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.MX;
 import org.jetbrains.annotations.NotNull;
 

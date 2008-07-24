@@ -4,6 +4,8 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
+import com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger;
+import static com.softwarecraftsmen.unsignedIntegers.Unsigned3BitInteger.Zero;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NameError;
 import static com.softwarecraftsmen.dns.messaging.ResponseCode.NoErrorCondition;
 import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.serialize;
@@ -35,10 +37,11 @@ public class MessageHeaderTest
 	@Test
 	public void replyHeaderIsForRequestHeader()
 	{
-		final MessageHeader request = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(false, InverseQuery, false, false, true, false, NoErrorCondition), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
-		final MessageHeader matchingReply = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(true, InverseQuery, true, false, true, true, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
-		final MessageHeader nonMatchingReply1 = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F00)), new MessageHeaderFlags(true, InverseQuery, true, false, true, true, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
-		final MessageHeader nonMatchingReply2 = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(true, Query, true, false, true, true, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
+		final Unsigned3BitInteger z = Zero;
+		final MessageHeader request = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(false, InverseQuery, false, false, true, false, z, NoErrorCondition), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
+		final MessageHeader matchingReply = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(true, InverseQuery, true, false, true, true, z, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
+		final MessageHeader nonMatchingReply1 = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F00)), new MessageHeaderFlags(true, InverseQuery, true, false, true, true, z, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
+		final MessageHeader nonMatchingReply2 = new MessageHeader(new MessageId(unsigned16BitInteger(0x0F0F)), new MessageHeaderFlags(true, Query, true, false, true, true, z, NameError), unsigned16BitInteger(2), unsigned16BitInteger(0), unsigned16BitInteger(0), unsigned16BitInteger(0));
 
 		assertTrue(request.matchesReply(matchingReply));
 		assertFalse(request.matchesReply(nonMatchingReply1));

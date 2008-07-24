@@ -32,7 +32,7 @@ public class MessageDeserializer
 	}
 
 	@NotNull
-	public Message readMessage() throws BadlyFormedDnsMessageException
+	public Message readMessage() throws BadlyFormedDnsMessageException, TruncatedDnsMessageException
 	{
 		final MessageHeader messageHeader = reader.readMessageHeader();
 		final List<Question> questionList = readQuestions(messageHeader.getNumberOfEntriesInQuestionSection());

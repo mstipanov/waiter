@@ -48,7 +48,7 @@ public class AtomicReader
 	}
 
 	@NotNull
-	public MessageHeaderFlags readMessageHeaderFlags() throws BadlyFormedDnsMessageException
+	public MessageHeaderFlags readMessageHeaderFlags() throws BadlyFormedDnsMessageException, TruncatedDnsMessageException
 	{
 		reader.moveToOffset(2);
 		final Unsigned16BitInteger unsigned16BitInteger = reader.readUnsigned16BitInteger();
@@ -64,6 +64,10 @@ public class AtomicReader
 		}
 		final boolean authoritativeAnswer = unsigned16BitInteger.getBitIetf(5);
 		final boolean truncation = unsigned16BitInteger.getBitIetf(6);
+		if (isResponse && truncation)
+		{
+			throw new TruncatedDnsMessageException();
+		}
 		final boolean recursionDesired = unsigned16BitInteger.getBitIetf(7);
 		final boolean recursionAvailable = unsigned16BitInteger.getBitIetf(8);
 		final Unsigned3BitInteger z = unsigned16BitInteger.getThreeBitsIetf(9);

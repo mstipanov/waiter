@@ -21,7 +21,7 @@ public class StructureReader
 	}
 
 	@NotNull
-	public MessageHeader readMessageHeader() throws BadlyFormedDnsMessageException
+	public MessageHeader readMessageHeader() throws BadlyFormedDnsMessageException, TruncatedDnsMessageException
 	{
 		return new MessageHeader
 		(

@@ -4,6 +4,7 @@ import com.softwarecraftsmen.Optional;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import com.softwarecraftsmen.dns.*;
 import com.softwarecraftsmen.dns.client.resourceRecordRepositories.NonCachingResourceRecordRepository;
+import com.softwarecraftsmen.dns.client.resolvers.MockDnsResolver;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
 import static com.softwarecraftsmen.dns.HostInformation.hostInformation;
 import static com.softwarecraftsmen.dns.HostName.hostName;

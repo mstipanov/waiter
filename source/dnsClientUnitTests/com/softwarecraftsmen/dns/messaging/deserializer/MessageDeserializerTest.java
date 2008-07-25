@@ -47,7 +47,7 @@ public class MessageDeserializerTest
 	// Additional records are usually the A name records for the NS records returned in the NS authorities; for MX requests they are A records for the servers
 	// AbstractName server authorities section can contain NS (for A requests) or SOA (for weirder requests)
 	@Test
-	public void deserializeResourceRecordsInAnswers() throws BadlyFormedDnsMessageException, UnknownHostException
+	public void deserializeResourceRecordsInAnswers() throws BadlyFormedDnsMessageException, UnknownHostException, TruncatedDnsMessageException
 	{
 		final Unsigned3BitInteger z = unsigned3BitInteger(6);
 		final Message expectedMessage = new Message

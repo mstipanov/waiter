@@ -103,6 +103,11 @@ public abstract class AbstractResourceRecord<S extends Name, T extends Serializa
 		}
 	}
 
+	public long expiresAtSystemTime(final @NotNull Seconds maximumTimeToLivePermitted)
+	{
+		return 0;
+	}
+
 	private boolean isFor(final @NotNull InternetClassType internetClassType)
 	{
 		return this.internetClassType.equals(internetClassType);

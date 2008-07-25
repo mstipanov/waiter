@@ -1,17 +1,22 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
+import com.softwarecraftsmen.Pair;
 import com.softwarecraftsmen.dns.Name;
 import com.softwarecraftsmen.dns.Seconds;
-import com.softwarecraftsmen.dns.messaging.QClass;
+import static com.softwarecraftsmen.dns.Seconds.currentTime;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
+import com.softwarecraftsmen.dns.messaging.QClass;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static java.lang.String.format;
+import java.util.LinkedHashSet;
 import static java.util.Locale.UK;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 
 public abstract class AbstractResourceRecord<S extends Name, T extends Serializable>  implements ResourceRecord<S, T>
 {
@@ -90,6 +95,7 @@ public abstract class AbstractResourceRecord<S extends Name, T extends Serializa
 		return result;
 	}
 
+	@NotNull
 	public String toString()
 	{
 		return format(UK, "%1$s %2$s %3$s %4$s %5$s", owner, timeToLive, qClass, internetClassType, data);
@@ -103,9 +109,43 @@ public abstract class AbstractResourceRecord<S extends Name, T extends Serializa
 		}
 	}
 
-	public long expiresAtSystemTime(final @NotNull Seconds maximumTimeToLivePermitted)
+	@NotNull
+	private Seconds expiresAtSystemTime(final @NotNull Seconds maximumTimeToLivePermitted)
 	{
-		return 0;
+		final Seconds actualTimeToLive = timeToLive.chooseSmallestValue(maximumTimeToLivePermitted);
+		return currentTime().add(actualTimeToLive);
+	}
+
+	public void addToCache(final @NotNull Seconds maximumTimeToLivePermitted, final @NotNull SortedMap<Seconds, Set<ResourceRecord<? extends Name, ? extends Serializable>>> bestBeforeTimesForResourceRecords, final @NotNull Map<Pair<Name, InternetClassType>, Set<ResourceRecord<? extends Name, ? extends Serializable>>> cache)
+	{
+		final Seconds expiresAtSystemTime = expiresAtSystemTime(maximumTimeToLivePermitted);
+		if (expiresAtSystemTime.compareTo(currentTime()) == -1)
+		{
+			return;
+		}
+		if (!bestBeforeTimesForResourceRecords.containsKey(expiresAtSystemTime))
+		{
+			bestBeforeTimesForResourceRecords.put(expiresAtSystemTime, new LinkedHashSet<ResourceRecord<? extends Name, ? extends Serializable>>());
+		}
+		bestBeforeTimesForResourceRecords.get(expiresAtSystemTime).add(this);
+
+
+		final Pair<Name, InternetClassType> key = new Pair<Name, InternetClassType>(owner, internetClassType);
+		if (!cache.containsKey(key))
+		{
+			cache.put(key, new LinkedHashSet<ResourceRecord<? extends Name, ? extends Serializable>>());
+		}
+		final Set<ResourceRecord<? extends Name, ? extends Serializable>> resourceRecordSet = cache.get(key);
+		resourceRecordSet.add(this);
+	}
+
+	public void removeFromCache(final @NotNull Map<Pair<Name, InternetClassType>, Set<ResourceRecord<? extends Name, ? extends Serializable>>> cache)
+	{
+		final Pair<Name, InternetClassType> key = new Pair<Name, InternetClassType>(owner, internetClassType);
+		if (cache.containsKey(key))
+		{
+			cache.get(key).remove(this);
+		}
 	}
 
 	private boolean isFor(final @NotNull InternetClassType internetClassType)

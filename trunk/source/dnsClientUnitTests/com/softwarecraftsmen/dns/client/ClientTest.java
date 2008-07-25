@@ -66,7 +66,6 @@ public class ClientTest
 	@Test
 	public void findAllInternetProtocolVersion6AddressesForNonCanonicalName()
 	{
-
 		dnsResolver.program(internetProtocolVersion6AddressResourceRecord(CanonicalName, seconds(1000), serializableInternetProtocolVersion6Address(2001, 0x0db8, 0x0000, 0x0000, 0x0000, 0x0000, 0x1428, 0x57ab)));
 		dnsResolver.program(internetProtocolVersion6AddressResourceRecord(CanonicalName, seconds(1000), serializableInternetProtocolVersion6Address(2001, 0x0db8, 0x0000, 0x0000, 0x0000, 0x0000, 0x1428, 0x57ac)));
 		dnsResolver.program(canonicalNameResourceRecord(AliasName, seconds(1000), CanonicalName));

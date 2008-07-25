@@ -11,8 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 import static java.util.Locale.UK;
 import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 
-public class Seconds implements Serializable
+public class Seconds implements Serializable, Comparable<Seconds>
 {
 	private final Unsigned32BitInteger value;
 
@@ -62,5 +63,38 @@ public class Seconds implements Serializable
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		writer.writeUnsigned32BitInteger(value);
+	}
+
+	public int compareTo(final @NotNull Seconds that)
+	{
+		return value.compareTo(that.value);
+	}
+
+	@NotNull
+	public Seconds chooseSmallestValue(final @NotNull Seconds that)
+	{
+		switch (compareTo(that))
+		{
+			case -1:
+				return this;
+			case 0:
+				return this;
+			case 1:
+				return that;
+			default:
+				return that;
+		}
+	}
+
+	@NotNull
+	public static Seconds currentTime()
+	{
+		return seconds(currentTimeMillis() / 1000);
+	}
+
+	@NotNull
+	public Seconds add(final @NotNull Seconds offset)
+	{
+		return seconds(this.value.add(offset.value));
 	}
 }

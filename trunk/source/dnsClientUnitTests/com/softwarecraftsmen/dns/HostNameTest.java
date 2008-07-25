@@ -6,6 +6,7 @@ package com.softwarecraftsmen.dns;
 import com.softwarecraftsmen.dns.AbstractName.EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd;
 import com.softwarecraftsmen.dns.AbstractName.LabelsCanNotBeLongerThan63CharactersException;
 import com.softwarecraftsmen.dns.AbstractName.LabelsCanNotContainPeriodsException;
+import com.softwarecraftsmen.dns.AbstractName.NameIncludingPeriodsAndFinalEmptyLabelCanNotBeMoreThan255Characters;
 import com.softwarecraftsmen.dns.AbstractName.TooManyLabelsException;
 import static com.softwarecraftsmen.dns.HostName.hostName;
 import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.serialize;
@@ -70,6 +71,12 @@ public class HostNameTest
 			tooManyLabels[index] = "somelabel";
 		}
 		new HostName(tooManyLabels);
+	}
+
+	@Test(expected = NameIncludingPeriodsAndFinalEmptyLabelCanNotBeMoreThan255Characters.class)
+	public void nameLongerThan255Characters()
+	{
+		hostName("123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.123456789.12345.");
 	}
 
 	@Test(expected = IllegalArgumentException.class)

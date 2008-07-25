@@ -64,6 +64,21 @@ public abstract class AbstractName implements Name
 		{
 			throw new TooManyLabelsException();
 		}
+		throwExceptionIfNameLongerThan255Bytes();
+	}
+
+	private void throwExceptionIfNameLongerThan255Bytes()
+	{
+		int totalLength = 0;
+		for (char[] label : labels)
+		{
+			totalLength += label.length;
+			totalLength += 1;
+		}
+		if (totalLength > 255)
+		{
+			throw new NameIncludingPeriodsAndFinalEmptyLabelCanNotBeMoreThan255Characters();
+		}
 	}
 
 	@NotNull
@@ -169,6 +184,14 @@ public abstract class AbstractName implements Name
 		public TooManyLabelsException()
 		{
 			super("More than 128 labels are not allowed in a DNS name");
+		}
+	}
+
+	public final class NameIncludingPeriodsAndFinalEmptyLabelCanNotBeMoreThan255Characters extends IllegalArgumentException
+	{
+		public NameIncludingPeriodsAndFinalEmptyLabelCanNotBeMoreThan255Characters()
+		{
+			super("More than 255 characters including dots (and the final trailing dot) are in this DNS name");
 		}
 	}
 }

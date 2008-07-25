@@ -3,65 +3,81 @@
  */
 package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 
+import com.softwarecraftsmen.Pair;
 import com.softwarecraftsmen.dns.Name;
 import com.softwarecraftsmen.dns.Seconds;
-import com.softwarecraftsmen.dns.HostName;
+import static com.softwarecraftsmen.dns.Seconds.currentTime;
 import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;
-import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
+import static com.softwarecraftsmen.dns.messaging.Message.allAnswersMatching;
+import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Set;
-import static java.lang.System.currentTimeMillis;
 
 public class CachingResourceRecordRepository implements ResourceRecordRepository
 {
 	private final DnsResolver dnsResolver;
 	private final Seconds maximumTimeToLivePermitted;
-	private final SortedMap<Long, ResourceRecord<? extends Name, ? extends Serializable>> bestBeforeTimesForResourceRecords;
+	private final Map<Pair<Name, InternetClassType>, Set<ResourceRecord<? extends Name, ? extends Serializable>>> cache;
+	private final SortedMap<Seconds, Set<ResourceRecord<? extends Name, ? extends Serializable>>> bestBeforeTimesForResourceRecords;
 
 	public CachingResourceRecordRepository(final @NotNull DnsResolver dnsResolver, final @NotNull Seconds maximumTimeToLivePermitted)
 	{
 		this.dnsResolver = dnsResolver;
 		this.maximumTimeToLivePermitted = maximumTimeToLivePermitted;
-		bestBeforeTimesForResourceRecords = new TreeMap<Long, ResourceRecord<? extends Name, ? extends Serializable>>();
+		cache = new HashMap<Pair<Name, InternetClassType>, Set<ResourceRecord<? extends Name, ? extends Serializable>>>();
+		bestBeforeTimesForResourceRecords = new TreeMap<Seconds, Set<ResourceRecord<? extends Name, ? extends Serializable>>>();
 	}
 
 	@NotNull
 	public <T extends Serializable> Set<T> findData(final @NotNull Name name, final @NotNull InternetClassType internetClassType)
 	{
-		return dnsResolver.resolve(name, internetClassType).allAnswersMatching(internetClassType);
-	}
+		removeStaleEntries();
 
-	private void add(final @NotNull ResourceRecord<? extends Name, ? extends Serializable> resourceRecord)
-	{
-		final long expiresAtSystemTime = resourceRecord.expiresAtSystemTime(maximumTimeToLivePermitted);
-		if (expiresAtSystemTime < currentTimeMillis())
+		final Pair<Name, InternetClassType> key = new Pair<Name, InternetClassType>(name, internetClassType);
+		if (!cache.containsKey(key))
 		{
-			return;
+			cache.put(key, new LinkedHashSet<ResourceRecord<? extends Name, ? extends Serializable>>());
 		}
-		bestBeforeTimesForResourceRecords.put(expiresAtSystemTime, resourceRecord);
-	}
+		Set<ResourceRecord<? extends Name, ? extends Serializable>> resourceRecords = cache.get(key);
+		if (resourceRecords.isEmpty())
+		{
+			resourceRecords = resolveAndCache(name, internetClassType);
+		}
 
-	@NotNull
-	private <T extends Serializable> Set<T> findResourceRecords(final @NotNull HostName hostName, final @NotNull InternetClassType internetClassType)
-	{
-		return null;
+		return allAnswersMatching(resourceRecords, internetClassType);
 	}
-
-	// TODO: Replace
-	// TODO: Look ups!
-	// TODO: Decide whether to dead head on each request or once a second?
 
 	private void removeStaleEntries()
 	{
-		final SortedMap<Long, ResourceRecord<? extends Name, ? extends Serializable>> map = bestBeforeTimesForResourceRecords.headMap(currentTimeMillis());
-		for (Long key : map.keySet())
+		final SortedMap<Seconds, Set<ResourceRecord<? extends Name, ? extends Serializable>>> map = bestBeforeTimesForResourceRecords.headMap(currentTime());
+		for (Seconds key : map.keySet())
 		{
-			bestBeforeTimesForResourceRecords.remove(key);
+			final Set<ResourceRecord<? extends Name, ? extends Serializable>> resourceRecords = map.get(key);
+			for (ResourceRecord<? extends Name, ? extends Serializable> resourceRecord : resourceRecords)
+			{
+				resourceRecord.removeFromCache(cache);
+			}
+			map.remove(key);
 		}
+	}
+
+	private Set<ResourceRecord<? extends Name, ? extends Serializable>> resolveAndCache(final Name name, final InternetClassType internetClassType)
+	{
+		final Set<ResourceRecord<? extends Name, ? extends Serializable>> resourceRecords = dnsResolver.resolve(name, internetClassType).allResourceRecords();
+		for (ResourceRecord<? extends Name, ? extends Serializable> resourceRecord : resourceRecords)
+		{
+			// TODO: Only code that needs to be clever is Client IpAddress finding code.
+			// BETTER: do a findCanonicalName from insider find Ip address, if result, do query with that else do query with original name
+			resourceRecord.addToCache(maximumTimeToLivePermitted, bestBeforeTimesForResourceRecords, cache);
+		}
+		return resourceRecords;
 	}
 }

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static java.util.Arrays.asList;
+import java.util.Collection;
 import static java.util.Collections.emptyList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -151,12 +152,30 @@ public class Message implements Serializable
 		return new Message(MessageHeader.emptyReply(request.messageHeader), request.questions, NoResourceRecords, NoResourceRecords, NoResourceRecords);
 	}
 
+	@NotNull
+	public Set<ResourceRecord<? extends Name, ? extends Serializable>> allResourceRecords()
+	{
+		return new LinkedHashSet<ResourceRecord<? extends Name, ? extends Serializable>>()
+		{{
+			addAll(answers);
+			addAll(nameServerAuthorities);
+			addAll(additionalRecords);
+		}};
+	}
+
 	@SuppressWarnings({"unchecked"})
 	@NotNull
 	public <T extends Serializable> Set<T> allAnswersMatching(final @NotNull InternetClassType internetClassType)
 	{
-		final Set<T> set = new LinkedHashSet<T>(answers.size());
-		for (ResourceRecord<? extends Name, ? extends Serializable> answer : answers)
+		return allAnswersMatching(answers, internetClassType);
+	}
+
+	@SuppressWarnings({"unchecked"})
+	@NotNull
+	public static <T extends Serializable> Set<T> allAnswersMatching(final @NotNull Collection<ResourceRecord<? extends Name, ? extends Serializable>> resourceRecords, final @NotNull InternetClassType internetClassType)
+	{
+		final Set<T> set = new LinkedHashSet<T>(resourceRecords.size());
+		for (ResourceRecord<? extends Name, ? extends Serializable> answer : resourceRecords)
 		{
 			answer.appendDataIfIs(internetClassType, (Set) set);
 		}

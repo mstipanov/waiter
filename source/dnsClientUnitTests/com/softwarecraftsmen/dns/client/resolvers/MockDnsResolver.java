@@ -4,7 +4,6 @@
 package com.softwarecraftsmen.dns.client.resolvers;
 
 import com.softwarecraftsmen.dns.Name;
-import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.Message;
 import com.softwarecraftsmen.dns.messaging.MessageHeader;
@@ -44,6 +43,11 @@ public final class MockDnsResolver implements DnsResolver
 	public void assertResolveCalledOnceOnly()
 	{
 		assertThat(resolvedCalledCount, is(equalTo(1)));
+	}
+
+	public void assertResolveCalledTwice()
+	{
+		assertThat(resolvedCalledCount, is(equalTo(2)));
 	}
 
 	@NotNull

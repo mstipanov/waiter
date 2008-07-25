@@ -1,7 +1,7 @@
 /**
  * This file is Copyright © 2008 Software Craftsmen Limited. All Rights Reserved.
  */
-package com.softwarecraftsmen.dns.client;
+package com.softwarecraftsmen.dns.client.resolvers;
 
 import com.softwarecraftsmen.dns.Name;
 import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;

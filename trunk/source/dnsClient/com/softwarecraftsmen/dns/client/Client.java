@@ -3,6 +3,7 @@ package com.softwarecraftsmen.dns.client;
 import com.softwarecraftsmen.CanNeverHappenException;
 import com.softwarecraftsmen.Optional;
 import com.softwarecraftsmen.dns.*;
+import com.softwarecraftsmen.dns.client.resourceRecordRepositories.ResourceRecordRepository;
 import static com.softwarecraftsmen.dns.ServiceName.serviceName;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.*;

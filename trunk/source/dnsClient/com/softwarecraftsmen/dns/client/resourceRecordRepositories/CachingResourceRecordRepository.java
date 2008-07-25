@@ -1,11 +1,12 @@
 /**
  * This file is Copyright © 2008 Software Craftsmen Limited. All Rights Reserved.
  */
-package com.softwarecraftsmen.dns.client;
+package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 
 import com.softwarecraftsmen.dns.Name;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.HostName;
+import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
@@ -16,18 +17,26 @@ import java.util.TreeMap;
 import java.util.Set;
 import static java.lang.System.currentTimeMillis;
 
-public class TimeBasedResourceRecordCache implements ResourceRecordCache
+public class CachingResourceRecordRepository implements ResourceRecordRepository
 {
+	private final DnsResolver dnsResolver;
 	private final Seconds maximumTimeToLivePermitted;
 	private final SortedMap<Long, ResourceRecord<? extends Name, ? extends Serializable>> bestBeforeTimesForResourceRecords;
 
-	public TimeBasedResourceRecordCache(final @NotNull Seconds maximumTimeToLivePermitted)
+	public CachingResourceRecordRepository(final @NotNull DnsResolver dnsResolver, final @NotNull Seconds maximumTimeToLivePermitted)
 	{
+		this.dnsResolver = dnsResolver;
 		this.maximumTimeToLivePermitted = maximumTimeToLivePermitted;
 		bestBeforeTimesForResourceRecords = new TreeMap<Long, ResourceRecord<? extends Name, ? extends Serializable>>();
 	}
 
-	public void add(final @NotNull ResourceRecord<? extends Name, ? extends Serializable> resourceRecord)
+	@NotNull
+	public <T extends Serializable> Set<T> findData(final @NotNull Name name, final @NotNull InternetClassType internetClassType)
+	{
+		return dnsResolver.resolve(name, internetClassType).allAnswersMatching(internetClassType);
+	}
+
+	private void add(final @NotNull ResourceRecord<? extends Name, ? extends Serializable> resourceRecord)
 	{
 		final long expiresAtSystemTime = resourceRecord.expiresAtSystemTime(maximumTimeToLivePermitted);
 		if (expiresAtSystemTime < currentTimeMillis())
@@ -38,7 +47,7 @@ public class TimeBasedResourceRecordCache implements ResourceRecordCache
 	}
 
 	@NotNull
-	public <T extends Serializable> Set<T> findResourceRecords(final @NotNull HostName hostName, final @NotNull InternetClassType internetClassType)
+	private <T extends Serializable> Set<T> findResourceRecords(final @NotNull HostName hostName, final @NotNull InternetClassType internetClassType)
 	{
 		return null;
 	}

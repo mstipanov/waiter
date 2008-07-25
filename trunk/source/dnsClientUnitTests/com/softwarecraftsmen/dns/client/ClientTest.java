@@ -181,7 +181,7 @@ public class ClientTest
 	public void before()
 	{
 		dnsResolver = new MockDnsResolver();
-		client = new Client(dnsResolver);
+		client = new Client(new NonCachingResourceRecordRepository(dnsResolver));
 	}
 
 	private MockDnsResolver dnsResolver;

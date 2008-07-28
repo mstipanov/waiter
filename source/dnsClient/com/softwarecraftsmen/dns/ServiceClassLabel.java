@@ -17,12 +17,20 @@ public class ServiceClassLabel implements Label
 			{
 				throw new IllegalArgumentException("label must be more than _");
 			}
+			if (label.length() > 15)
+			{
+				throw new ServiceClassLabelMustBeLessThan15CharactersException();
+			}
 		}
 		else
 		{
 			if (label.length() == 0)
 			{
 				throw new IllegalArgumentException("label must have a substantive value");
+			}
+			if (label.length() > 14)
+			{
+				throw new ServiceClassLabelMustBeLessThan15CharactersException();
 			}
 			this.label = "_" + label;
 		}
@@ -69,5 +77,13 @@ public class ServiceClassLabel implements Label
 	public String toStringRepresentation()
 	{
 		return label;
+	}
+
+	public static class ServiceClassLabelMustBeLessThan15CharactersException extends IllegalArgumentException
+	{
+		public ServiceClassLabelMustBeLessThan15CharactersException()
+		{
+			super("A service class label must be less than 14 characters long");
+		}
 	}
 }

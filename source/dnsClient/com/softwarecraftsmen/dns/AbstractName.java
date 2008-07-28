@@ -92,22 +92,6 @@ public abstract class AbstractName implements Name
 		return stringLabels;
 	}
 
-	@NotNull
-	public String toDotSeparatedString()
-	{
-		final StringWriter writer = new StringWriter();
-		for (char[] label : labels)
-		{
-			if (label.length == 0)
-			{
-				break;
-			}
-			writer.write(valueOf(label));
-			writer.write(".");
-		}
-		return writer.toString();
-	}
-
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
 		for (char[] label : labels)
@@ -152,7 +136,17 @@ public abstract class AbstractName implements Name
 	@NotNull
 	public String toString()
 	{
-		return toDotSeparatedString();
+		final StringWriter writer = new StringWriter();
+		for (char[] label : labels)
+		{
+			if (label.length == 0)
+			{
+				break;
+			}
+			writer.write(valueOf(label));
+			writer.write(".");
+		}
+		return writer.toString();
 	}
 
 	public final class LabelsCanNotBeLongerThan63CharactersException extends IllegalArgumentException

@@ -29,7 +29,7 @@ public class HostNameTest
 	@Test
 	public void doesNotConstructsWithEmptyTerminalLabelWhenSpecified()
 	{
-		assertThat(new HostName("www", "softwarecraftsmen", "com", "").toDotSeparatedString(), equalTo("www.softwarecraftsmen.com."));
+		assertThat(new HostName("www", "softwarecraftsmen", "com", ""), hasToString(equalTo("HostName(www.softwarecraftsmen.com.)")));
 	}
 
 	@Test(expected = EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd.class)
@@ -88,13 +88,13 @@ public class HostNameTest
 	@Test
 	public void nameHelperStaticMethodWorks()
 	{
-		assertThat(hostName("www.softwarecraftsmen.com").toDotSeparatedString(), equalTo("www.softwarecraftsmen.com."));
+		assertThat(hostName("www.softwarecraftsmen.com"), hasToString(equalTo("HostName(www.softwarecraftsmen.com.)")));
 	}
 
 	@Test
 	public void nameHelperStaticMethodWorksWithRootDomain()
 	{
-		assertThat(hostName("www.softwarecraftsmen.com.").toDotSeparatedString(), equalTo("www.softwarecraftsmen.com."));
+		assertThat(hostName("www.softwarecraftsmen.com."), hasToString(equalTo("HostName(www.softwarecraftsmen.com.)")));
 	}
 
 	@Test

@@ -35,9 +35,7 @@ Add a class to combine Weight and Priority to implement the rules in RFC2782 for
 Consider comparable on all Names... look at mail exchange for ideas.
 Implement AbstractResourceRecord.serialize
 Implement Serialize in all Names...
-Add a class to represent labels and possibly character strings...
 Add all common IANA service names as a partial enumerated list to ServiceClassLabel.
-Move from string labels to a GenericLabel class
 
 Confirm
 SOA is domain name or host name owner?

@@ -9,27 +9,27 @@ import java.util.List;
 
 public class ServiceName implements Name
 {
-	private final ServiceClassLabel serviceClassLabel;
+	private final ServiceLabel serviceLabel;
 	private final ServiceProtocolLabel serviceProtocolLabel;
 	private final DomainName domainName;
 
-	public ServiceName(final @NotNull ServiceClassLabel serviceClassLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
+	public ServiceName(final @NotNull ServiceLabel serviceLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
 	{
-		this.serviceClassLabel = serviceClassLabel;
+		this.serviceLabel = serviceLabel;
 		this.serviceProtocolLabel = serviceProtocolLabel;
 		this.domainName = domainName;
 	}
 
 	@NotNull
-	public static ServiceName serviceName(final @NotNull ServiceClassLabel serviceClassLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
+	public static ServiceName serviceName(final @NotNull ServiceLabel serviceLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
 	{
-		return new ServiceName(serviceClassLabel, serviceProtocolLabel, domainName);
+		return new ServiceName(serviceLabel, serviceProtocolLabel, domainName);
 	}
 
 	@NotNull
 	public String toString()
 	{
-		return string(this, serviceClassLabel, serviceProtocolLabel, domainName);
+		return string(this, serviceLabel, serviceProtocolLabel, domainName);
 	}
 
 	@SuppressWarnings({"RedundantIfStatement"})
@@ -50,11 +50,11 @@ public class ServiceName implements Name
 		{
 			return false;
 		}
-		if (!serviceClassLabel.equals(that.serviceClassLabel))
+		if (!serviceLabel.equals(that.serviceLabel))
 		{
 			return false;
 		}
-		if (serviceProtocolLabel != that.serviceProtocolLabel)
+		if (!serviceProtocolLabel.equals(that.serviceProtocolLabel))
 		{
 			return false;
 		}
@@ -64,7 +64,7 @@ public class ServiceName implements Name
 	public int hashCode()
 	{
 		int result;
-		result = serviceClassLabel.hashCode();
+		result = serviceLabel.hashCode();
 		result = 31 * result + serviceProtocolLabel.hashCode();
 		result = 31 * result + domainName.hashCode();
 		return result;
@@ -72,18 +72,18 @@ public class ServiceName implements Name
 
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
-		serviceClassLabel.serialize(writer);
+		serviceLabel.serialize(writer);
 		serviceProtocolLabel.serialize(writer);
 		domainName.serialize(writer);
 	}
 
 	@NotNull
-	public List<String> toLabels()
+	public List<Label> toLabels()
 	{
-		return new ArrayList<String>()
+		return new ArrayList<Label>()
 		{{
-			add(serviceClassLabel.toStringRepresentation());
-			add(serviceProtocolLabel.toStringRepresentation());
+			add(serviceLabel);
+			add(serviceProtocolLabel);
 			addAll(domainName.toLabels());
 		}};
 	}

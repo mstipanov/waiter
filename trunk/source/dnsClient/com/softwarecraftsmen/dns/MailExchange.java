@@ -7,7 +7,8 @@ import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import static java.util.Collections.reverse;
 import java.util.List;
 
 public class MailExchange implements Comparable<MailExchange>, Serializable
@@ -67,8 +68,8 @@ public class MailExchange implements Comparable<MailExchange>, Serializable
 		{
 			return initialPreference;
 		}
-		final List<String> thisLabels = reverseLabelsInHostName(this);
-		final List<String> thatLabels = reverseLabelsInHostName(that);
+		final List<SimpleLabel> thisLabels = reverseLabelsInHostName(this);
+		final List<SimpleLabel> thatLabels = reverseLabelsInHostName(that);
 
 		if (thisLabels.size() < thatLabels.size())
 		{
@@ -89,11 +90,12 @@ public class MailExchange implements Comparable<MailExchange>, Serializable
 		return 0;
 	}
 
-	private List<String> reverseLabelsInHostName(final MailExchange mailExchange)
+	private List<SimpleLabel> reverseLabelsInHostName(final MailExchange mailExchange)
 	{
-		final List<String> labels = mailExchange.hostName.toLabels();
-		Collections.reverse(labels);
-		return labels;
+		return new ArrayList<SimpleLabel>(mailExchange.hostName.toLabels())
+		{{
+			reverse(this);
+		}};
 	}
 
 	public void serialize(final @NotNull AtomicWriter writer)

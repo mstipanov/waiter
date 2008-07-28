@@ -159,19 +159,19 @@ public class AtomicReader
 	@NotNull
 	public MailBox readMailBox() throws BadlyFormedDnsMessageException
 	{
-		final List<String> labels = readLabels();
+		final List<SimpleLabel> labels = readLabels();
 		if (labels.size() < 2)
 		{
 			throw new BadlyFormedDnsMessageException("A mailbox must have more than one label");
 		}
-		final String userName = labels.get(0);
-		return mailBox(userName, new DomainName(labels.subList(1, labels.size() - 1)));
+		final Label userName = labels.get(0);
+		return mailBox(userName.toStringRepresentation(), new DomainName(labels.subList(1, labels.size() - 1)));
 	}
 
-	private List<String> readLabels()
+	private List<SimpleLabel> readLabels()
 	{
 		final LabelsReader labelsReader = new LabelsReader(reader);
-		final List<String> labels = new ArrayList<String>();
+		final List<SimpleLabel> labels = new ArrayList<SimpleLabel>();
 		labelsReader.readLabels(labels);
 		return labels;
 	}

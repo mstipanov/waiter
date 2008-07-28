@@ -1,5 +1,7 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
+import com.softwarecraftsmen.dns.SimpleLabel;
+import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger.Zero;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +20,7 @@ public class LabelsReader
 		this.reader = reader;
 	}
 
-	public void readLabels(final @NotNull List<String> appendTo)
+	public void readLabels(final @NotNull List<SimpleLabel> appendTo)
 	{
 		boolean continueReadingLabels = true;
 		while(continueReadingLabels)
@@ -27,7 +29,7 @@ public class LabelsReader
 		}
 	}
 
-	private boolean readLabelOrJumpToLabels(final @NotNull List<String> appendTo)
+	private boolean readLabelOrJumpToLabels(final @NotNull List<SimpleLabel> appendTo)
 	{
 		final Unsigned8BitInteger potentialNumberOfCharacters = reader.readUnsigned8BitInteger();
 		if (isCompressedName(potentialNumberOfCharacters))
@@ -53,9 +55,9 @@ public class LabelsReader
 	}
 
 	@NotNull
-	private String readLabel(final Unsigned8BitInteger potentialNumberOfCharacters)
+	private SimpleLabel readLabel(final Unsigned8BitInteger potentialNumberOfCharacters)
 	{
-		return reader.readAsciiString(potentialNumberOfCharacters);
+		return simpleLabel(reader.readAsciiString(potentialNumberOfCharacters));
 	}
 
 	private boolean isCompressedName(final @NotNull Unsigned8BitInteger numberOfCharacters)

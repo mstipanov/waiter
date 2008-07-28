@@ -97,9 +97,9 @@ public class Client
 	}
 
 	@NotNull
-	public Set<ServiceInformation> findServiceInformation(final @NotNull ServiceClassLabel serviceClassLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
+	public Set<ServiceInformation> findServiceInformation(final @NotNull ServiceLabel serviceLabel, final @NotNull ServiceProtocolLabel serviceProtocolLabel, final @NotNull DomainName domainName)
 	{
-		return resourceRecordRepository.findData(serviceName(serviceClassLabel, serviceProtocolLabel, domainName), SRV);
+		return resourceRecordRepository.findData(serviceName(serviceLabel, serviceProtocolLabel, domainName), SRV);
 	}
 
 	@SuppressWarnings({"LoopStatementThatDoesntLoop"})

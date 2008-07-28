@@ -1,6 +1,7 @@
 package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
+import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,11 +67,11 @@ public class MailBox implements Name
 	}
 
 	@NotNull
-	public List<String> toLabels()
+	public List<Label> toLabels()
 	{
-		return new ArrayList<String>()
+		return new ArrayList<Label>()
 		{{
-			add(userName);
+			add(simpleLabel(userName));
 			addAll(domainName.toLabels());
 		}};
 	}

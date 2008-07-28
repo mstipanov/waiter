@@ -12,7 +12,7 @@ import static com.softwarecraftsmen.dns.MailExchange.mailExchange;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion6Address;
-import static com.softwarecraftsmen.dns.ServiceClassLabel.serviceClass;
+import static com.softwarecraftsmen.dns.ServiceLabel.serviceLabel;
 import static com.softwarecraftsmen.dns.ServiceInformation.serviceInformation;
 import static com.softwarecraftsmen.dns.ServiceProtocolLabel.TCP;
 import static com.softwarecraftsmen.dns.Text.text;
@@ -171,10 +171,10 @@ public class ClientTest
 	@Test
 	public void findServiceInformation()
 	{
-		final ServiceClassLabel serviceClassLabel = serviceClass("_ldap");
+		final ServiceLabel serviceLabel = serviceLabel("_ldap");
 		final ServiceInformation expectedServiceInformation = serviceInformation(unsigned16BitInteger(100), unsigned16BitInteger(10), unsigned16BitInteger(8080), AliasName);
-		dnsResolver.program(serviceInformationResourceRecord(ServiceName.serviceName(serviceClassLabel, TCP, SomeDomainName), seconds(1000), expectedServiceInformation));
-		final Set<ServiceInformation> actualServiceInformation = client.findServiceInformation(serviceClassLabel, TCP, SomeDomainName);
+		dnsResolver.program(serviceInformationResourceRecord(ServiceName.serviceName(serviceLabel, TCP, SomeDomainName), seconds(1000), expectedServiceInformation));
+		final Set<ServiceInformation> actualServiceInformation = client.findServiceInformation(serviceLabel, TCP, SomeDomainName);
 		assertThat(actualServiceInformation.size(), is(greaterThan(0)));
 	}
 

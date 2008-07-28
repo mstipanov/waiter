@@ -1,9 +1,10 @@
 package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.CanNeverHappenException;
-import com.softwarecraftsmen.toString.ToString;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import static com.softwarecraftsmen.dns.PointerName.pointerName;
+import static com.softwarecraftsmen.toString.ToString.string;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,7 +44,7 @@ public class SerializableInternetProtocolAddress<A extends InetAddress> implemen
 	@NotNull
 	public String toString()
 	{
-		return ToString.string(this, address);
+		return string(this, address);
 	}
 
 	public boolean equals(final @Nullable Object o)
@@ -163,11 +164,11 @@ public class SerializableInternetProtocolAddress<A extends InetAddress> implemen
 	{
 		if (address instanceof Inet4Address)
 		{
-			return new PointerName((Inet4Address)address);
+			return pointerName((Inet4Address)address);
 		}
 		else if (address instanceof Inet6Address)
 		{
-			return new PointerName((Inet6Address)address);
+			return pointerName((Inet6Address)address);
 		}
 		throw new IllegalStateException("We only support instances of InetAddress which are for Internet Protocol Version 4 and Internet Protocol Version 6");
 	}

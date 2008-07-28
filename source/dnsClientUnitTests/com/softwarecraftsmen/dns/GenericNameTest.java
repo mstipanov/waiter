@@ -3,7 +3,10 @@
  */
 package com.softwarecraftsmen.dns;
 
+import com.softwarecraftsmen.ConvenientArrayList;
 import static com.softwarecraftsmen.ConvenientArrayList.toList;
+import static com.softwarecraftsmen.dns.SimpleLabel.Empty;
+import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
 import com.softwarecraftsmen.dns.messaging.GenericName;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -16,7 +19,8 @@ public class GenericNameTest
 	@Test
 	public void toLabelsMatchesExactStructure()
 	{
-		final List<String> labels = new GenericName(toList("www", "google", "com", "")).toLabels();
-		assertThat(toList("www", "google", "com", ""), equalTo(labels));
+		final List<Label> labels = new GenericName(toList(simpleLabel("www"), simpleLabel("google"), simpleLabel("com"), Empty)).toLabels();
+		final List<Label> actual = new ConvenientArrayList<Label>(simpleLabel("www"), simpleLabel("google"), simpleLabel("com"), Empty);
+		assertThat(actual, equalTo(labels));
 	}
 }

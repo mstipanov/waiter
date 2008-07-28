@@ -3,9 +3,11 @@
  */
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.ConvenientArrayList.toList;
+import com.softwarecraftsmen.ConvenientArrayList;
 import static com.softwarecraftsmen.dns.DomainName.domainName;
 import static com.softwarecraftsmen.dns.MailBox.mailBox;
+import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
+import static com.softwarecraftsmen.dns.SimpleLabel.Empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class MailBoxTest
 	@Test
 	public void toLabelsMatchesExactStructure()
 	{
-		final List<String> labels = mailBox("raphael.james.cohn", domainName("softwarecraftsmen.com")).toLabels();
-		assertThat(toList("raphael.james.cohn", "softwarecraftsmen", "com", ""), equalTo(labels));
+		final List<Label> labels = mailBox("raph", domainName("softwarecraftsmen.com")).toLabels();
+		assertThat(new ConvenientArrayList<Label>(simpleLabel("raph"), simpleLabel("softwarecraftsmen"), simpleLabel("com"), Empty), equalTo(labels));
 	}
 }

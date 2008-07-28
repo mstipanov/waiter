@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public interface Name extends Serializable
+public interface Name<L extends Label> extends Serializable
 {
 	@NotNull
-	List<String> toLabels();
+	List<L> toLabels();
 }

@@ -3,12 +3,15 @@
  */
 package com.softwarecraftsmen.dns;
 
+import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
 
 public interface Label extends Serializable
 {
 	@NotNull
 	String toStringRepresentation();
+
+	boolean isEmpty();
+
+	int length();
 }

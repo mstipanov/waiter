@@ -3,61 +3,44 @@
  */
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.dns.NonAsciiAndControlCharactersAreNotSupportedInCharacterStringsException.throwExceptionIfUnsupportedCharacterCode;
+import static com.softwarecraftsmen.dns.SimpleLabel.Empty;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.StringWriter;
-import static java.lang.String.format;
-import static java.lang.String.valueOf;
 import java.util.ArrayList;
-import java.util.Arrays;
+import static java.util.Collections.unmodifiableList;
 import java.util.List;
-import static java.util.Locale.UK;
 
-public abstract class AbstractName implements Name
+public abstract class AbstractName implements Name<SimpleLabel>
 {
 	@NonNls
-	private static final char[] EmptyFinalLabel = {};
-	private final List<char[]> labels;
+	private final List<SimpleLabel> labels;
 
-	public AbstractName(final @NotNull List<String> labels)
+	public AbstractName(final @NotNull List<SimpleLabel> labels)
 	{
-		this(labels.toArray(new String[labels.size()]));
+		this(labels.toArray(new SimpleLabel[labels.size()]));
 	}
 
-	public AbstractName(final @NotNull String... labels)
+	public AbstractName(final @NotNull SimpleLabel... labels)
 	{
 		if (labels.length == 0)
 		{
 			throw new IllegalArgumentException("There must be at least one label");
 		}
-		this.labels = new ArrayList<char[]>();
+		this.labels = new ArrayList<SimpleLabel>();
 		for (int index = 0; index < labels.length; index++)
 		{
-			final char[] label = labels[index].toCharArray();
-			if (label.length > 63)
-			{
-				throw new LabelsCanNotBeLongerThan63CharactersException(valueOf(label));
-			}
-			if (label.length == 0 && index != labels.length - 1)
+			final SimpleLabel label = labels[index];
+			if (label.isEmpty() && index != labels.length - 1)
 			{
 				throw new EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd();
 			}
 			this.labels.add(label);
-			for (char toWrite : label)
+			if (!label.isEmpty() && index == labels.length - 1)
 			{
-				throwExceptionIfUnsupportedCharacterCode(toWrite);
-				if (toWrite == '.')
-				{
-					throw new LabelsCanNotContainPeriodsException(valueOf(label));
-				}
-			}
-			if (label.length != 0 && index == labels.length - 1)
-			{
-				this.labels.add(EmptyFinalLabel);
+				this.labels.add(Empty);
 			}
 		}
 		if (this.labels.size() > 128)
@@ -70,9 +53,9 @@ public abstract class AbstractName implements Name
 	private void throwExceptionIfNameLongerThan255Bytes()
 	{
 		int totalLength = 0;
-		for (char[] label : labels)
+		for (Label label : labels)
 		{
-			totalLength += label.length;
+			totalLength += label.length();
 			totalLength += 1;
 		}
 		if (totalLength > 255)
@@ -82,25 +65,20 @@ public abstract class AbstractName implements Name
 	}
 
 	@NotNull
-	public List<String> toLabels()
+	public List<SimpleLabel> toLabels()
 	{
-		final List<String> stringLabels = new ArrayList<String>();
-		for (char[] label : labels)
-		{
-			stringLabels.add(valueOf(label));
-		}
-		return stringLabels;
+		return unmodifiableList(labels);
 	}
 
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
-		for (char[] label : labels)
+		for (Label label : labels)
 		{
-			writer.writeCharacterString(label);
+			label.serialize(writer);
 		}
 	}
 
-	public boolean equals(final @Nullable Object o)
+	public boolean equals(final Object o)
 	{
 		if (this == o)
 		{
@@ -111,21 +89,8 @@ public abstract class AbstractName implements Name
 			return false;
 		}
 
-		final AbstractName name = (AbstractName) o;
-		if (labels.size() != name.labels.size())
-		{
-			return false;
-		}
-		for (int index = 0; index < labels.size(); index++)
-		{
-			final char[] chars = labels.get(index);
-			final char[] thatChars = name.labels.get(index);
-			if (!Arrays.equals(chars, thatChars))
-			{
-				return false;
-			}
-		}
-		return true;
+		final AbstractName that = (AbstractName) o;
+		return labels.equals(that.labels);
 	}
 
 	public int hashCode()
@@ -137,24 +102,16 @@ public abstract class AbstractName implements Name
 	public String toString()
 	{
 		final StringWriter writer = new StringWriter();
-		for (char[] label : labels)
+		for (Label label : labels)
 		{
-			if (label.length == 0)
+			if (label.isEmpty())
 			{
 				break;
 			}
-			writer.write(valueOf(label));
+			writer.write(label.toString());
 			writer.write(".");
 		}
 		return writer.toString();
-	}
-
-	public final class LabelsCanNotBeLongerThan63CharactersException extends IllegalArgumentException
-	{
-		public LabelsCanNotBeLongerThan63CharactersException(final @NotNull String label)
-		{
-			super(format(UK, "Labels (the strings between dots in a DNS name) can not be longer than 63 character. This label, %1$s, is.", label));
-		}
 	}
 
 	public final class EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd extends IllegalArgumentException
@@ -162,14 +119,6 @@ public abstract class AbstractName implements Name
 		public EmptyLabelsAreNotAllowedInNamesExceptAtTheEnd()
 		{
 			super("Empty labels are not allowed in names except at the end");
-		}
-	}
-
-	public final class LabelsCanNotContainPeriodsException extends IllegalArgumentException
-	{
-		public LabelsCanNotContainPeriodsException(final @NotNull String label)
-		{
-			super(format(UK, "Labels (the strings between dots in a DNS name) can not contain the period character. This label, %1$s, does.", label));
 		}
 	}
 

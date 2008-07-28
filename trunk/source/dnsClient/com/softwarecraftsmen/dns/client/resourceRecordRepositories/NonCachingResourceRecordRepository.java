@@ -6,7 +6,7 @@ package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 import org.jetbrains.annotations.NotNull;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;
 
 import java.util.Set;

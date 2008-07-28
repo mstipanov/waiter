@@ -1,6 +1,6 @@
 package com.softwarecraftsmen;
 
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
 import org.jetbrains.annotations.NotNull;

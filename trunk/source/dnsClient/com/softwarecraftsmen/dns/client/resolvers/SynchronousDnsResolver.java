@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns.client.resolvers;
 
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.client.resolvers.protoolClients.ProtocolClient;
 import com.softwarecraftsmen.dns.client.resolvers.protoolClients.TcpProtocolClient;
 import com.softwarecraftsmen.dns.client.resolvers.protoolClients.UdpProtocolClient;

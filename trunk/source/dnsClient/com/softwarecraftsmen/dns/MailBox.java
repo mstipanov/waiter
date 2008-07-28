@@ -1,7 +1,10 @@
 package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
-import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
+import static com.softwarecraftsmen.dns.labels.SimpleLabel.simpleLabel;
+import com.softwarecraftsmen.dns.labels.Label;
+import com.softwarecraftsmen.dns.names.Name;
+import com.softwarecraftsmen.dns.names.DomainName;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

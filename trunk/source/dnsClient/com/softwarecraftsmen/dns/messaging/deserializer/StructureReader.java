@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.messaging.GenericName;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;

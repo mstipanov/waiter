@@ -3,15 +3,12 @@
  */
 package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 
-import com.softwarecraftsmen.dns.HostName;
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import com.softwarecraftsmen.dns.names.HostName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import com.softwarecraftsmen.dns.SerializableInternetProtocolAddress;
-import com.softwarecraftsmen.dns.MailExchange;
-import static com.softwarecraftsmen.dns.DomainName.domainName;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
 import com.softwarecraftsmen.dns.client.resolvers.MockDnsResolver;
-import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.A;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.CNAME;
 import static com.softwarecraftsmen.dns.resourceRecords.CanonicalNameResourceRecord.canonicalNameResourceRecord;

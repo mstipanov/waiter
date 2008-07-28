@@ -1,7 +1,7 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
-import com.softwarecraftsmen.dns.HostName;
-import com.softwarecraftsmen.dns.PointerName;
+import com.softwarecraftsmen.dns.names.HostName;
+import com.softwarecraftsmen.dns.names.PointerName;
 import com.softwarecraftsmen.dns.Seconds;
 import static com.softwarecraftsmen.dns.messaging.QClass.Internet;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.PTR;

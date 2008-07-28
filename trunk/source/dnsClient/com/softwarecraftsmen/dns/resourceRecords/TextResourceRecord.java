@@ -1,6 +1,6 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
-import com.softwarecraftsmen.dns.HostName;
+import com.softwarecraftsmen.dns.names.HostName;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.Text;
 import static com.softwarecraftsmen.dns.messaging.QClass.Internet;

@@ -5,7 +5,7 @@ package com.softwarecraftsmen.dns.messaging;
 
 import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.*;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.messaging.deserializer.AtomicReader;
 import com.softwarecraftsmen.dns.messaging.deserializer.BadlyFormedDnsMessageException;

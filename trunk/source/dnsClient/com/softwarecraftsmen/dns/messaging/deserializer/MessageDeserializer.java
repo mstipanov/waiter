@@ -9,7 +9,7 @@ import com.softwarecraftsmen.dns.messaging.MessageHeader;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
 import static com.softwarecraftsmen.dns.messaging.MessageHeader.SizeOfDnsMessageHeader;
 import com.softwarecraftsmen.dns.resourceRecords.ResourceRecord;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 

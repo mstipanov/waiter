@@ -1,7 +1,7 @@
 package com.softwarecraftsmen.dns.messaging.deserializer;
 
-import com.softwarecraftsmen.dns.SimpleLabel;
-import static com.softwarecraftsmen.dns.SimpleLabel.simpleLabel;
+import com.softwarecraftsmen.dns.labels.SimpleLabel;
+import static com.softwarecraftsmen.dns.labels.SimpleLabel.simpleLabel;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned8BitInteger.Zero;
 import org.jetbrains.annotations.NotNull;

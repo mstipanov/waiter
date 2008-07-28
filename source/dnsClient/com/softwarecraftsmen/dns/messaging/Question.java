@@ -4,7 +4,7 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.toString.ToString.string;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import static com.softwarecraftsmen.dns.messaging.QClass.Internet;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;

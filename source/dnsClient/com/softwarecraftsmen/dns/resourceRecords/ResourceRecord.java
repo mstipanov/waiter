@@ -4,7 +4,7 @@
 package com.softwarecraftsmen.dns.resourceRecords;
 
 import com.softwarecraftsmen.Pair;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.Seconds;
 import com.softwarecraftsmen.dns.messaging.InternetClassType;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;

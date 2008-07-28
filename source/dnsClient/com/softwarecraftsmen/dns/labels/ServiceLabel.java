@@ -1,38 +1,38 @@
-package com.softwarecraftsmen.dns;
+package com.softwarecraftsmen.dns.labels;
 
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ServiceClassLabel implements Label
+public class ServiceLabel implements Label
 {
-	private final String label;
+	private final String value;
 
-	public ServiceClassLabel(final @NotNull String label)
+	public ServiceLabel(final @NotNull String value)
 	{
-		if (label.startsWith("_"))
+		if (value.startsWith("_"))
 		{
-			this.label = label;
-			if (label.length() == 1)
+			this.value = value;
+			if (value.length() == 1)
 			{
 				throw new IllegalArgumentException("label must be more than _");
 			}
-			if (label.length() > 15)
+			if (value.length() > 15)
 			{
 				throw new ServiceClassLabelMustBeLessThan15CharactersException();
 			}
 		}
 		else
 		{
-			if (label.length() == 0)
+			if (value.length() == 0)
 			{
 				throw new IllegalArgumentException("label must have a substantive value");
 			}
-			if (label.length() > 14)
+			if (value.length() > 14)
 			{
 				throw new ServiceClassLabelMustBeLessThan15CharactersException();
 			}
-			this.label = "_" + label;
+			this.value = "_" + value;
 		}
 	}
 
@@ -47,43 +47,53 @@ public class ServiceClassLabel implements Label
 			return false;
 		}
 
-		final ServiceClassLabel that = (ServiceClassLabel) o;
-		return label.equals(that.label);
+		final ServiceLabel that = (ServiceLabel) o;
+		return value.equals(that.value);
 	}
 
 	public int hashCode()
 	{
-		return label.hashCode();
+		return value.hashCode();
 	}
 
 	@NotNull
 	public String toString()
 	{
-		return label;
+		return value;
 	}
 
 	@NotNull
-	public static ServiceClassLabel serviceClass(final @NotNull String label)
+	public static ServiceLabel serviceLabel(final @NotNull String label)
 	{
-		return new ServiceClassLabel(label);
+		return new ServiceLabel(label);
 	}
 
 	public void serialize(final @NotNull AtomicWriter writer)
 	{
-		writer.writeCharacterString(label);
+		writer.writeCharacterString(value);
 	}
 
 	@NotNull
 	public String toStringRepresentation()
 	{
-		return label;
+		return value;
+	}
+
+	public boolean isEmpty()
+	{
+		return false;
+	}
+
+	public int length()
+	{
+		return value.length();
 	}
 
 	public static class ServiceClassLabelMustBeLessThan15CharactersException extends IllegalArgumentException
 	{
 		public ServiceClassLabelMustBeLessThan15CharactersException()
 		{
-			super("A service class label must be less than 14 characters long");
+			super("A service class value must be less than 14 characters long");
 		}
 	}
 }

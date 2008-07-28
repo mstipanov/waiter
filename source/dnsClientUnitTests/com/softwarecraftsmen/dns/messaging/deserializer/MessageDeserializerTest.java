@@ -2,10 +2,10 @@ package com.softwarecraftsmen.dns.messaging.deserializer;
 
 import static com.softwarecraftsmen.ConvenientArrayList.toList;
 import static com.softwarecraftsmen.ConvenientArrayList.toResourceRecordList;
-import com.softwarecraftsmen.dns.DomainName;
-import static com.softwarecraftsmen.dns.DomainName.domainName;
-import com.softwarecraftsmen.dns.HostName;
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import com.softwarecraftsmen.dns.names.DomainName;
+import static com.softwarecraftsmen.dns.names.DomainName.domainName;
+import com.softwarecraftsmen.dns.names.HostName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;
 import com.softwarecraftsmen.dns.messaging.GenericName;

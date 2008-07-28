@@ -4,6 +4,8 @@ import com.softwarecraftsmen.toString.ToString;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned32BitInteger;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import com.softwarecraftsmen.dns.names.HostName;
+import com.softwarecraftsmen.dns.MailBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

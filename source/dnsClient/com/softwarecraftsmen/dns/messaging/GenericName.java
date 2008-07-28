@@ -1,15 +1,15 @@
 package com.softwarecraftsmen.dns.messaging;
 
-import com.softwarecraftsmen.dns.DomainName;
-import com.softwarecraftsmen.dns.HostName;
-import com.softwarecraftsmen.dns.Label;
-import com.softwarecraftsmen.dns.Name;
-import com.softwarecraftsmen.dns.PointerName;
-import com.softwarecraftsmen.dns.ServiceLabel;
-import com.softwarecraftsmen.dns.ServiceName;
-import com.softwarecraftsmen.dns.ServiceProtocolLabel;
-import com.softwarecraftsmen.dns.SimpleLabel;
-import static com.softwarecraftsmen.dns.SimpleLabel.labelsFromDottedName;
+import com.softwarecraftsmen.dns.names.DomainName;
+import com.softwarecraftsmen.dns.names.HostName;
+import com.softwarecraftsmen.dns.labels.Label;
+import com.softwarecraftsmen.dns.names.Name;
+import com.softwarecraftsmen.dns.names.PointerName;
+import com.softwarecraftsmen.dns.labels.ServiceLabel;
+import com.softwarecraftsmen.dns.names.ServiceName;
+import com.softwarecraftsmen.dns.labels.ServiceProtocolLabel;
+import com.softwarecraftsmen.dns.labels.SimpleLabel;
+import static com.softwarecraftsmen.dns.labels.SimpleLabel.labelsFromDottedName;
 import com.softwarecraftsmen.dns.messaging.deserializer.BadlyFormedDnsMessageException;
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import static com.softwarecraftsmen.toString.ToString.string;

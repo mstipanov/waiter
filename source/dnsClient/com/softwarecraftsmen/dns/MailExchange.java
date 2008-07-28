@@ -2,6 +2,8 @@ package com.softwarecraftsmen.dns;
 
 import com.softwarecraftsmen.dns.messaging.serializer.AtomicWriter;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;
+import com.softwarecraftsmen.dns.labels.SimpleLabel;
+import com.softwarecraftsmen.dns.names.HostName;
 import static com.softwarecraftsmen.toString.ToString.string;
 import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;

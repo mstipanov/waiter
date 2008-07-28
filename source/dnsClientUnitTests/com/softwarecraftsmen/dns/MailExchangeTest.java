@@ -3,7 +3,7 @@
  */
 package com.softwarecraftsmen.dns;
 
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.MailExchange.mailExchange;
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.unsigned16BitInteger;
 import static org.hamcrest.Matchers.*;

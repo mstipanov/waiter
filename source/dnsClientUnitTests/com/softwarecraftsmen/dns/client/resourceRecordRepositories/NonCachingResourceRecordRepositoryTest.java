@@ -3,8 +3,8 @@
  */
 package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 
-import com.softwarecraftsmen.dns.HostName;
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import com.softwarecraftsmen.dns.names.HostName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.Seconds.seconds;
 import com.softwarecraftsmen.dns.SerializableInternetProtocolAddress;
 import static com.softwarecraftsmen.dns.SerializableInternetProtocolAddress.serializableInternetProtocolVersion4Address;

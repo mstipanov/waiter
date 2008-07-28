@@ -4,7 +4,7 @@
 package com.softwarecraftsmen.dns.messaging;
 
 import static com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger.One;
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.messaging.InternetClassType.A;
 import static com.softwarecraftsmen.dns.messaging.Message.NoResourceRecords;
 import static com.softwarecraftsmen.dns.messaging.MessageHeader.outboundMessageHeader;

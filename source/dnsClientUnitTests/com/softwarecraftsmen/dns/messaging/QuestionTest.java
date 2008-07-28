@@ -3,8 +3,8 @@
  */
 package com.softwarecraftsmen.dns.messaging;
 
-import com.softwarecraftsmen.dns.AbstractName;
-import static com.softwarecraftsmen.dns.HostName.hostName;
+import com.softwarecraftsmen.dns.names.AbstractName;
+import static com.softwarecraftsmen.dns.names.HostName.hostName;
 import static com.softwarecraftsmen.dns.messaging.Question.internetQuestion;
 import static com.softwarecraftsmen.dns.messaging.serializer.ByteSerializer.serialize;
 import com.softwarecraftsmen.dns.messaging.serializer.Serializable;

@@ -4,7 +4,7 @@
 package com.softwarecraftsmen.dns.client.resourceRecordRepositories;
 
 import com.softwarecraftsmen.Pair;
-import com.softwarecraftsmen.dns.Name;
+import com.softwarecraftsmen.dns.names.Name;
 import com.softwarecraftsmen.dns.Seconds;
 import static com.softwarecraftsmen.dns.Seconds.currentTime;
 import com.softwarecraftsmen.dns.client.resolvers.DnsResolver;

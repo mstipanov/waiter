@@ -8,7 +8,7 @@ import com.softwarecraftsmen.unsignedIntegers.Unsigned16BitInteger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ServiceInformation implements Serializable
+public class ServiceInformation implements Serializable, Comparable<ServiceInformation>
 {
 	private final Unsigned16BitInteger priority;
 	private final Unsigned16BitInteger weight;
@@ -85,5 +85,15 @@ public class ServiceInformation implements Serializable
 		writer.writeUnsigned16BitInteger(weight);
 		writer.writeUnsigned16BitInteger(port);
 		canonicalTargetHostName.serialize(writer);
+	}
+
+	public int compareTo(final @NotNull ServiceInformation that)
+	{
+		final int i = this.priority.compareTo(that.priority);
+		if (i != 0)
+		{
+			return i;
+		}
+		return this.weight.compareTo(that.weight);
 	}
 }
